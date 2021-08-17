@@ -3,10 +3,47 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HoodieSuite"
+        xmlns:local="clr-namespace:HoodieSuite" xmlns:viewmodel="clr-namespace:HoodieSuite.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Background="#292128"
+        WindowStyle="SingleBorderWindow"
+        AllowsTransparency="False"
+        ResizeMode="CanResize"
+        Height="650" Width="1200"
+        UseLayoutRounding="True">
 
+    <Window.DataContext>
+        <viewmodel:MainViewModel/>
+    </Window.DataContext>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="30"
+                CornerRadius="10"
+                GlassFrameThickness="0"
+                NonClientFrameEdges="None"
+                ResizeBorderThickness="3"/>
+    </WindowChrome.WindowChrome>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.ColumnSpan="2" Background="#2b2b2b">
+            <Grid HorizontalAlignment="Stretch">
+                <Label Content="HoodieSuite" Foreground="Goldenrod" FontFamily="Candara Light" FontSize="16" FontWeight="Bold" Margin="5,3,0,0"/>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True" Margin="0,5,5,0">
+                    <Button Width="25" Height="25" Content="—" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMinimize_Click" />
+                    <Button Width="25" Height="25" Content="⬜" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMaximize_Click"/>
+                    <Button Width="25" Height="25" Content="✕" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonClose_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

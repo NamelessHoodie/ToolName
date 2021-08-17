@@ -6,4 +6,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="MVVM\Model\" />
+    <Folder Include="MVVM\View\" />
+    <Folder Include="Icons\" />
+    <Folder Include="Themes\" />
+  </ItemGroup>
+
 </Project>
