@@ -37,7 +37,31 @@
 
         <Border Grid.ColumnSpan="2" Background="#2b2b2b">
             <Grid HorizontalAlignment="Stretch">
-                <Label Content="HoodieSuite" Foreground="Goldenrod" FontFamily="Candara Light" FontSize="16" FontWeight="Bold" Margin="5,3,0,0"/>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
+                    <StackPanel>
+                        <Label Content="HoodieSuite" Foreground="Goldenrod" FontFamily="Candara Light" FontSize="16" FontWeight="Bold" Margin="5,3,0,0"/>
+                        <ComboBox Background="Transparent" Foreground="Green"  Margin="0,7,0,0">
+                            <ComboBoxItem Content="Dark Souls 3"/>
+                            <ComboBoxItem Content="BloodBorne"/>
+                            <ComboBoxItem Content="Dark Souls 2 - SOTFS"/>
+                            <ComboBoxItem Content="Dark Souls 2"/>
+                            <ComboBoxItem Content="Dark Souls 1 - Remastered"/>
+                            <ComboBoxItem Content="Dark Souls 1"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <ItemsControl x:Name="recentSearches" ItemsSource="{Binding TabsTools}" Background="White" Margin="0,65,0,0" Tap="recentSearches_Tap">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding TabName}" TextWrapping="Wrap" Padding="2,6,2,2" Margin="12,-6,12,0" FontSize="20" />
+                                        <CheckBox IsChecked="{Binding True}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </StackPanel>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True" Margin="0,5,5,0">
                     <Button Width="25" Height="25" Content="—" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMinimize_Click" />
                     <Button Width="25" Height="25" Content="⬜" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMaximize_Click"/>
