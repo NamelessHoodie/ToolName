@@ -23,6 +23,8 @@ namespace HoodieSuite
         public MainWindow()
         {
             InitializeComponent();
+            //lol.Header = new TextBlock() { Text= lol.Header.ToString() };
+
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -49,6 +51,10 @@ namespace HoodieSuite
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

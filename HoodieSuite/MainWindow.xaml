@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HoodieSuite" xmlns:viewmodel="clr-namespace:HoodieSuite.MVVM.ViewModel" xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+        xmlns:local="clr-namespace:HoodieSuite" xmlns:viewmodel="clr-namespace:HoodieSuite.MVVM.ViewModel" xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz" xmlns:themes="clr-namespace:Dragablz.Themes;assembly=Dragablz"
         mc:Ignorable="d"
         Background="#292128"
         WindowStyle="SingleBorderWindow"
@@ -11,6 +11,88 @@
         ResizeMode="CanResize"
         Height="650" Width="1200"
         UseLayoutRounding="True">
+
+    <Window.Resources>
+        <local:TabItemGetHeaderTextXaml x:Key="TabItemHeaderTextToString()"/>
+        <Style x:Key="StyledDragablz" TargetType="{x:Type dragablz:DragablzItem}">
+            <Setter Property="Height" Value="35" />
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Background" Value="#FF5B3F57"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type dragablz:DragablzItem}">
+                        <Grid SnapsToDevicePixels="True" Width="Auto">
+                            <Thumb Margin="1,1,1,1" Background="{TemplateBinding Background}" Name="PART_Thumb" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                <Thumb.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Border Background="{TemplateBinding Background}" CornerRadius="3.5"/>
+                                            <Border Opacity="0.5" CornerRadius="3.5">
+                                                <Border.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#FF32192F" Offset="1"/>
+                                                        <GradientStop Color="#33292128"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                            </Border>
+                                            <Rectangle StrokeThickness="3" Stroke="#FF32192F" RadiusX="2" RadiusY="2" Opacity="0.37"/>
+                                            <Border Opacity="0.2">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Style.Setters>
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                        </Style.Setters>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="true">
+                                                                <Trigger.Setters>
+                                                                    <Setter Property="Background" Value="#FFD6320E"/>
+                                                                </Trigger.Setters>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                            </Border>
+                                            <Button x:Name="haha" Content="x" Padding="0,-6,0,0" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0,0,5,0" Height="10" Width="10" Grid.Column="1" Command="{x:Static dragablz:TabablzControl.CloseItemCommand}" CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Thumb.Template>
+                            </Thumb>
+                            <CheckBox IsChecked="{TemplateBinding IsSelected}" IsHitTestVisible="False">
+                                <CheckBox.Style>
+                                    <Style TargetType="CheckBox">
+                                        <Style.Setters>
+                                            <Setter Property="Background" Value="Transparent"/>
+                                        </Style.Setters>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsChecked" Value="true">
+                                                <Setter Property = "Background">
+                                                    <Setter.Value>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF9B1313"/>
+                                                            <GradientStop Color="#FF32192F" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </CheckBox.Style>
+                                <CheckBox.Template>
+                                    <ControlTemplate>
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="3.5" Opacity="0.35" />
+                                    </ControlTemplate>
+                                </CheckBox.Template>
+                            </CheckBox>
+                            <Label IsHitTestVisible="False" Padding="8,9,0,0" Content="{TemplateBinding Content, Converter={StaticResource TabItemHeaderTextToString()}}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
     <Window.DataContext>
         <viewmodel:MainViewModel/>
@@ -26,33 +108,36 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="65"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="83*"/>
+            <ColumnDefinition Width="517*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Background="#2b2b2b"/>
+        <Border Background="#2b2b2b" Grid.ColumnSpan="2">
+            <Grid>
+                <Label Content="HoodieSuite" Foreground="Goldenrod" FontFamily="Candara Light" FontSize="16" FontWeight="Bold" Margin="5,3,0,0"/>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,5,5,36" Width="75">
+                    <Button Width="25" Height="25" Content="—" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMinimize_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
+                    <Button Width="25" Height="25" Content="⬜" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMaximize_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
+                    <Button Width="25" Height="25" Content="✕" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonClose_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
+                </StackPanel>
+            </Grid>
+        </Border>
 
-        <dragablz:TabablzControl Background="#292128" Grid.Row="0" TabStripPlacement="Top" Grid.RowSpan="2" Margin="8" WindowChrome.IsHitTestVisibleInChrome="True">
+        <dragablz:TabablzControl BorderBrush="Transparent" Grid.ColumnSpan="2" ItemContainerStyle="{StaticResource StyledDragablz}" Background="Transparent" Grid.Row="0" Grid.RowSpan="2" Margin="7,29,0,2" WindowChrome.IsHitTestVisibleInChrome="True">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>
-            <TabItem Header="Tab No. 1" IsSelected="True">
-                <TextBlock>Hello World</TextBlock>
+            <TabItem Header="Tool 1" IsSelected="True">
+                <TextBlock>Do stuff here!</TextBlock>
             </TabItem>
-            <TabItem Header="Tab No. 2">
-                <TextBlock>We Have Tearable Tabs!</TextBlock>
+            <TabItem Header="Tool 2">
+                <TextBlock>Do other stuff here!</TextBlock>
             </TabItem>
         </dragablz:TabablzControl>
-
-
-        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,5,5,0">
-            <Button Width="25" Height="25" Content="—" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMinimize_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
-            <Button Width="25" Height="25" Content="⬜" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMaximize_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
-            <Button Width="25" Height="25" Content="✕" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonClose_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
-        </StackPanel>
     </Grid>
 </Window>
