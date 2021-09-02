@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HoodieSuite" xmlns:viewmodel="clr-namespace:HoodieSuite.MVVM.ViewModel"
+        xmlns:local="clr-namespace:HoodieSuite" xmlns:viewmodel="clr-namespace:HoodieSuite.MVVM.ViewModel" xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
         Background="#292128"
         WindowStyle="SingleBorderWindow"
@@ -23,7 +23,7 @@
                 NonClientFrameEdges="None"
                 ResizeBorderThickness="3"/>
     </WindowChrome.WindowChrome>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -31,43 +31,28 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.ColumnSpan="2" Background="#2b2b2b">
-            <Grid HorizontalAlignment="Stretch">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
-                    <StackPanel>
-                        <Label Content="HoodieSuite" Foreground="Goldenrod" FontFamily="Candara Light" FontSize="16" FontWeight="Bold" Margin="5,3,0,0"/>
-                        <ComboBox Background="Transparent" Foreground="Green"  Margin="0,7,0,0">
-                            <ComboBoxItem Content="Dark Souls 3"/>
-                            <ComboBoxItem Content="BloodBorne"/>
-                            <ComboBoxItem Content="Dark Souls 2 - SOTFS"/>
-                            <ComboBoxItem Content="Dark Souls 2"/>
-                            <ComboBoxItem Content="Dark Souls 1 - Remastered"/>
-                            <ComboBoxItem Content="Dark Souls 1"/>
-                        </ComboBox>
-                    </StackPanel>
-                    <StackPanel>
-                        <ItemsControl x:Name="recentSearches" ItemsSource="{Binding TabsTools}" Background="White" Margin="0,65,0,0" Tap="recentSearches_Tap">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding TabName}" TextWrapping="Wrap" Padding="2,6,2,2" Margin="12,-6,12,0" FontSize="20" />
-                                        <CheckBox IsChecked="{Binding True}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True" Margin="0,5,5,0">
-                    <Button Width="25" Height="25" Content="—" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMinimize_Click" />
-                    <Button Width="25" Height="25" Content="⬜" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMaximize_Click"/>
-                    <Button Width="25" Height="25" Content="✕" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonClose_Click"/>
-                </StackPanel>
-            </Grid>
-        </Border>
+        <Border Background="#2b2b2b"/>
+
+        <dragablz:TabablzControl Background="#292128" Grid.Row="0" TabStripPlacement="Top" Grid.RowSpan="2" Margin="8" WindowChrome.IsHitTestVisibleInChrome="True">
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>
+            <TabItem Header="Tab No. 1" IsSelected="True">
+                <TextBlock>Hello World</TextBlock>
+            </TabItem>
+            <TabItem Header="Tab No. 2">
+                <TextBlock>We Have Tearable Tabs!</TextBlock>
+            </TabItem>
+        </dragablz:TabablzControl>
+
+
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,5,5,0">
+            <Button Width="25" Height="25" Content="—" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMinimize_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
+            <Button Width="25" Height="25" Content="⬜" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMaximize_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
+            <Button Width="25" Height="25" Content="✕" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonClose_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
+        </StackPanel>
     </Grid>
 </Window>
