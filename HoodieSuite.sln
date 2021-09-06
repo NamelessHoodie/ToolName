@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31423.177
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoodieSuite", "HoodieSuite\HoodieSuite.csproj", "{56E0E3AF-AB77-4DFB-A2BF-A23CC7C3DAF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoodieSuite", "HoodieSuite\HoodieSuite.csproj", "{56E0E3AF-AB77-4DFB-A2BF-A23CC7C3DAF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

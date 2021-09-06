@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Text;
@@ -9,7 +10,7 @@ namespace HoodieSuite.Properties
 {
     public static class ResourcesRW
     {
-        public static string resFilePath = ".\\Properties\\Resources.resx";
+        public static string resFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Properties", "Resources.resx");
         public static void AddOrUpdateResource(string key, string value)
         {
             var resx = new List<DictionaryEntry>();

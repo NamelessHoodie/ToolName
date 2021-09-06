@@ -3,6 +3,7 @@ using HoodieSuite.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -44,6 +45,14 @@ namespace HoodieSuite.MVVM.View
         {
             tools.ItemsSource = ViewModel.GameToolPage[ViewModel.SelectedGame];
             ResourcesRW.AddOrUpdateResource("Last_Selected_Game", ViewModel.SelectedGame);
+        }
+
+        private void Double_Click_LaunchTool(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount >= 2)
+            {
+                Process proc = Process.Start(ViewModel.SelectedTool.ToolPath);
+            }
         }
     }
 }

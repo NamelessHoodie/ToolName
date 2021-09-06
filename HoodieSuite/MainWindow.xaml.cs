@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Resources;
 using System.Collections;
+using HoodieSuite.MVVM.View;
 
 namespace HoodieSuite
 {

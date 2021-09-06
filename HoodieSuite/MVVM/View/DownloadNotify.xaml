@@ -1,0 +1,19 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    x:Class="HoodieSuite.MVVM.View.DownloadNotify"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    WindowStartupLocation="CenterScreen" 
+    SizeToContent="WidthAndHeight"
+    MinWidth="300"
+    MinHeight="100"
+    WindowStyle="SingleBorderWindow"
+    ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="19*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Name="TitleTextBox" Margin="10,4,10,0"/>
+        <ProgressBar x:Name="ProgressBar" Grid.Row="1" Minimum="0" Maximum="100" Value="0" Margin="10" />
+    </Grid>
+</Window>
+

@@ -61,7 +61,7 @@ namespace HoodieSuite.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dark Souls - PTDE.
+        ///   Looks up a localized string similar to Dark Souls 3.
         /// </summary>
         internal static string Last_Selected_Game {
             get {

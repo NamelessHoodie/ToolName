@@ -15,7 +15,14 @@ namespace HoodieSuite
         {
             if (value is TabItem TabItem)
             {
-                return TabItem.Header.ToString();
+                if (TabItem.Header != null)
+                {
+                    return TabItem.Header.ToString();
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {

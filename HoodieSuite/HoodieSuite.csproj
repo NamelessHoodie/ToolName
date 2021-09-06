@@ -10,6 +10,7 @@
 	<ItemGroup>
 		<Folder Include="Core\" />
 		<Folder Include="Icons\DefaultIcons\" />
+		<Folder Include="Tools\" />
 		<Folder Include="Themes\" />
 	</ItemGroup>
 
@@ -21,6 +22,9 @@
 
 	<ItemGroup>
 		<Content Include="Icons\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Tools\**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
@@ -39,5 +43,11 @@
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Definitions\ToolsDef.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 </Project>
