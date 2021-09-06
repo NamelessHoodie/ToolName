@@ -3,7 +3,7 @@
 
 # RoadMap:
 ```
-1: Fancy Looking GUI - Done\n
+1: Fancy Looking GUI - Done
 ```
 ```
 2: Automatic tool manager so no manual downloads are required - Done
