@@ -1,4 +1,5 @@
 ﻿using HoodieSuite.MVVM.ViewModel;
+using HoodieSuite.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,11 +35,15 @@ namespace HoodieSuite.MVVM.View
         public DashboardToolSelector()
         {
             InitializeComponent();
+            var LastSelectedGame = ResourcesRW.ReadKeyFromResourceFile("Last_Selected_Game");
+            GamesListBox.SelectedItem = LastSelectedGame;
+            tools.ItemsSource = ViewModel.GameToolPage[LastSelectedGame];
         }
 
         private void GameSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             tools.ItemsSource = ViewModel.GameToolPage[ViewModel.SelectedGame];
+            ResourcesRW.AddOrUpdateResource("Last_Selected_Game", ViewModel.SelectedGame);
         }
     }
 }

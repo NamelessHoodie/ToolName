@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using HoodieSuite.Properties;
 
 namespace HoodieSuite.MVVM.ViewModel
 {
@@ -26,7 +27,7 @@ namespace HoodieSuite.MVVM.ViewModel
             }
         };
         public List<String> SupportedGames { get; set; }
-        public String SelectedGame { get; set; } = "Dark Souls - PTDE";
+        public String SelectedGame { get; set; }
         public DashboardViewModel()
         {
             SupportedGames = GameToolPage.Keys.ToList();

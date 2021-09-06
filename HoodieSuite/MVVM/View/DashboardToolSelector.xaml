@@ -17,7 +17,7 @@
             <ColumnDefinition Width="221*"/>
             <ColumnDefinition Width="579*"/>
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="0" SelectionChanged="GameSelector_SelectionChanged" SelectedItem="{Binding SelectedGame, Mode=OneWayToSource}" ItemsSource="{Binding SupportedGames}"/>
+        <ListBox x:Name="GamesListBox" Grid.Column="0" SelectionChanged="GameSelector_SelectionChanged" SelectedItem="{Binding SelectedGame, Mode=OneWayToSource}" ItemsSource="{Binding SupportedGames}"/>
         <ListBox x:Name="tools" Grid.Column="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
