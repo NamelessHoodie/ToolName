@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="HoodieSuite.MVVM.View.DashboardToolSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewmodel="clr-namespace:HoodieSuite.MVVM.ViewModel"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <viewmodel:DashboardViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="221*"/>
+            <ColumnDefinition Width="579*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="0" SelectionChanged="GameSelector_SelectionChanged" SelectedItem="{Binding SelectedGame, Mode=OneWayToSource}" ItemsSource="{Binding SupportedGames}"/>
+        <ListBox x:Name="tools" Grid.Column="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="4,4,4,8">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="40" Width="40" Margin="1,0,0,0" gif:ImageBehavior.AnimatedSource="{Binding IconPath}"/>
+                            <Rectangle Fill="{StaticResource SeparatorForegroundColor}" Opacity="0.5"  VerticalAlignment="Stretch" Height="40" Width="3" Margin="0,0,5,0" Stroke="{StaticResource SeparatorForegroundColor}" />
+                            <TextBlock Text="{Binding ToolName}" Margin="0,0,0,0" FontSize="14"/>
+                        </StackPanel>
+                        <Separator  VerticalAlignment="Bottom" Opacity="0.5" Background="{StaticResource SeparatorForegroundColor}" Margin="0,0,0,0">
+                            <Separator.RenderTransform>
+                                <ScaleTransform ScaleY="3" />
+                            </Separator.RenderTransform>
+                        </Separator>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

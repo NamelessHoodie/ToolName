@@ -1,21 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Core\" />
-    <Folder Include="MVVM\View\" />
-    <Folder Include="Icons\" />
-    <Folder Include="Themes\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Core\" />
+		<Folder Include="Icons\DefaultIcons\" />
+		<Folder Include="Themes\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Dragablz" Version="0.0.3.223" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Dragablz" Version="0.0.3.223" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+		<PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
+	</ItemGroup>
 
+	<ItemGroup>
+		<Content Include="Icons\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 </Project>

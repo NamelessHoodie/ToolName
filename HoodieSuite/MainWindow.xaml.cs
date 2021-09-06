@@ -23,8 +23,6 @@ namespace HoodieSuite
         public MainWindow()
         {
             InitializeComponent();
-            //lol.Header = new TextBlock() { Text= lol.Header.ToString() };
-
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

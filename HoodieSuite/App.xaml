@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:HoodieSuite"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Dictionaries/Colors.xaml"/>
+                <ResourceDictionary Source="Dictionaries/ControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HoodieSuite" xmlns:viewmodel="clr-namespace:HoodieSuite.MVVM.ViewModel" xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz" xmlns:themes="clr-namespace:Dragablz.Themes;assembly=Dragablz"
+        xmlns:local="clr-namespace:HoodieSuite" 
+        xmlns:viewmodel="clr-namespace:HoodieSuite.MVVM.ViewModel" 
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz" 
+        xmlns:themes="clr-namespace:Dragablz.Themes;assembly=Dragablz" 
+        xmlns:view="clr-namespace:HoodieSuite.MVVM.View"
         mc:Ignorable="d"
-        Background="#292128"
+        Background="{StaticResource WindowBackgroundMediumColor}"
         WindowStyle="SingleBorderWindow"
         AllowsTransparency="False"
         ResizeMode="CanResize"
@@ -86,7 +90,7 @@
                                     </ControlTemplate>
                                 </CheckBox.Template>
                             </CheckBox>
-                            <Label IsHitTestVisible="False" Padding="8,9,0,0" Content="{TemplateBinding Content, Converter={StaticResource TabItemHeaderTextToString()}}"/>
+                            <Label HorizontalAlignment="Stretch" Margin="6,-1,18,0" VerticalAlignment="Center" IsHitTestVisible="False" Padding="0" Content="{TemplateBinding Content, Converter={StaticResource TabItemHeaderTextToString()}}"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -117,9 +121,9 @@
             <ColumnDefinition Width="517*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Background="#2b2b2b" Grid.ColumnSpan="2">
+        <Border Background="{StaticResource WindowChromeBackgroundMediumColor}" Grid.ColumnSpan="2">
             <Grid>
-                <Label Content="HoodieSuite" Foreground="Goldenrod" FontFamily="Candara Light" FontSize="16" FontWeight="Bold" Margin="5,3,0,0"/>
+                <Label Content="HoodieSuite" Foreground="{StaticResource HoodieSuiteLogoColor}" FontFamily="Candara Light" FontSize="16" FontWeight="Bold" Margin="5,3,0,0"/>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,5,5,36" Width="75">
                     <Button Width="25" Height="25" Content="—" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMinimize_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
                     <Button Width="25" Height="25" Content="⬜" FontSize="12" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="ButtonMaximize_Click" WindowChrome.IsHitTestVisibleInChrome="True"/>
@@ -128,15 +132,14 @@
             </Grid>
         </Border>
 
-        <dragablz:TabablzControl BorderBrush="Transparent" Grid.ColumnSpan="2" ItemContainerStyle="{StaticResource StyledDragablz}" Background="Transparent" Grid.Row="0" Grid.RowSpan="2" Margin="7,29,0,2" WindowChrome.IsHitTestVisibleInChrome="True">
+        <dragablz:TabablzControl x:Name="TabsBar" BorderBrush="Transparent" Grid.ColumnSpan="2" ItemContainerStyle="{StaticResource StyledDragablz}" Background="Transparent" Grid.Row="0" Grid.RowSpan="2" Margin="7,29,7,7" WindowChrome.IsHitTestVisibleInChrome="True">
             <dragablz:TabablzControl.InterTabController>
-                <dragablz:InterTabController />
+                <dragablz:InterTabController/>
             </dragablz:TabablzControl.InterTabController>
-            <TabItem Header="Tool 1" IsSelected="True">
-                <TextBlock>Do stuff here!</TextBlock>
-            </TabItem>
-            <TabItem Header="Tool 2">
-                <TextBlock>Do other stuff here!</TextBlock>
+            <TabItem Header="HoodieSuite">
+                <ContentControl>
+                    <view:DashboardToolSelector/>
+                </ContentControl>
             </TabItem>
         </dragablz:TabablzControl>
     </Grid>
