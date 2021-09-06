@@ -2,7 +2,7 @@
  A user friendly modding suite for from software games
 
 # RoadMap:
-```
+
 1: Fancy Looking GUI # - Done
 2: Automatic tool manager so no manual downloads are required # - Done
 3: Ability to launch said tools from inside the program # - Done
@@ -12,4 +12,4 @@
 7: It should copy something in your mod folder without your input when it is opened, if not already present there. # - Nope
 8: from software archive types should be browsed and edited just like folders. # - Nope
 9: Every file needs to have an handler, write subtools to handle every file that hasn't been handled. # - Nope
-```
+
