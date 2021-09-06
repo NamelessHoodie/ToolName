@@ -22,7 +22,7 @@
         <ListBox x:Name="tools" Grid.Column="1" SelectedItem="{Binding SelectedTool, Mode=OneWayToSource}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="4,4,4,8" MouseDown="Double_Click_LaunchTool">
+                    <Grid Margin="4,4,4,8">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="40" Width="40" Margin="1,0,0,0" gif:ImageBehavior.AnimatedSource="{Binding IconPath}"/>
                             <Rectangle Fill="{StaticResource SeparatorForegroundColor}" Opacity="0.5"  VerticalAlignment="Stretch" Height="40" Width="3" Margin="0,0,5,0" Stroke="{StaticResource SeparatorForegroundColor}" />
@@ -33,6 +33,7 @@
                                 <ScaleTransform ScaleY="3" />
                             </Separator.RenderTransform>
                         </Separator>
+                        <Border Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDown="Double_Click_LaunchTool"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -52,6 +52,7 @@ namespace HoodieSuite.MVVM.View
             if (e.ClickCount >= 2)
             {
                 Process proc = Process.Start(ViewModel.SelectedTool.ToolPath);
+                Debug.WriteLine($"Launching: {ViewModel.SelectedTool.ToolPath}");
             }
         }
     }
