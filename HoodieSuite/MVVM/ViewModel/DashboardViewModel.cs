@@ -82,7 +82,7 @@ namespace HoodieSuite.MVVM.ViewModel
                                     {
                                         if (!string.IsNullOrEmpty(ToolPath.Value))
                                         {
-                                            string absoluteToolPath = Path.Combine(absoluteToolsFolderPath, Path.GetDirectoryName(ToolPath.Value));
+                                            string absoluteToolPath = Path.Combine(absoluteToolsFolderPath, ToolPath.Value.Split('\\').First());
                                             string absoluteToolPathExe = Path.Combine(absoluteToolsFolderPath, ToolPath.Value);
                                             string absoluteVersionFilePath = Path.Combine(absoluteToolPath, $"{toolName.Value.Replace(' ', '_')}.hsvf");
                                             toolEntry.ToolPath = absoluteToolPathExe;
