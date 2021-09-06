@@ -3,7 +3,7 @@
 
 # RoadMap:
 
-1: Fancy Looking GUI # - Done
+1: Fancy Looking GUI # - Done\n
 2: Automatic tool manager so no manual downloads are required # - Done
 3: Ability to launch said tools from inside the program # - Done
 4: Ability to unpack the game with uxm if your game is not already unpacked # - Nope
