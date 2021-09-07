@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31423.177
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoodieSuite", "HoodieSuite\HoodieSuite.csproj", "{56E0E3AF-AB77-4DFB-A2BF-A23CC7C3DAF5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulsFormats", "SoulsFormats\SoulsFormats.csproj", "{5BD56AC0-0108-405E-9398-359918441C9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{56E0E3AF-AB77-4DFB-A2BF-A23CC7C3DAF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56E0E3AF-AB77-4DFB-A2BF-A23CC7C3DAF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56E0E3AF-AB77-4DFB-A2BF-A23CC7C3DAF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BD56AC0-0108-405E-9398-359918441C9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BD56AC0-0108-405E-9398-359918441C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BD56AC0-0108-405E-9398-359918441C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BD56AC0-0108-405E-9398-359918441C9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

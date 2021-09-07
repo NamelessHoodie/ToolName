@@ -26,6 +26,9 @@ namespace HoodieSuite
         public MainWindow()
         {
             InitializeComponent();
+#if DEBUG
+            new SoulsFormatsTester().Show();
+#endif
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

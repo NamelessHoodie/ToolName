@@ -1,0 +1,19 @@
+﻿<Window x:Class="HoodieSuite.MVVM.View.SoulsFormatsTester"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HoodieSuite.MVVM.View"
+        mc:Ignorable="d"
+        Title="SoulsFormatsTester" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="389*"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Click="Button_Click">Test</Button>
+        <ListBox Grid.Row="1" x:Name="TestListBox" VerticalContentAlignment="Stretch">
+
+        </ListBox>
+    </Grid>
+</Window>
