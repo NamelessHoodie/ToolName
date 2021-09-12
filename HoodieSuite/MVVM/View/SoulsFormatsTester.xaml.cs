@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Linq;
 using SoulsFormats;
+using System.Diagnostics;
 
 namespace HoodieSuite.MVVM.View
 {
@@ -27,15 +28,17 @@ namespace HoodieSuite.MVVM.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            int[] arr = new int[] {1,2,3,4,5,6,7,8,9,10 };
+            foreach (var item in Enumerable.Range(0, arr.Length).Reverse())
+            {
+                Debug.WriteLine(arr[item]);
+            } 
             var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                for (int i = 0; i < TestListBox.Items.Count; i++)
-                {
-                    TestListBox.Items.Remove(0);
-                }
+                TestListBox.Items.Clear();
                 BND4 anibnd = BND4.Read(ofd.FileName);
-                TAE3 tae = TAE3.Read(anibnd.Files.First(item => item.ID == 5000000 + 627).Bytes);
+                TAE3 tae = TAE3.Read(anibnd.Files.First(item => item.ID == 5000000 + 4).Bytes);
                 foreach (var item in tae.Animations)
                 {
                     TestListBox.Items.Add(item.ID);
