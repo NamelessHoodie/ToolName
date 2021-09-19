@@ -12,8 +12,8 @@
             <RowDefinition Height="389*"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Click="Button_Click">Test</Button>
-        <ListBox Grid.Row="1" x:Name="TestListBox" VerticalContentAlignment="Stretch">
+        <TreeView Grid.Row="1" x:Name="TestListBox" VerticalContentAlignment="Stretch">
 
-        </ListBox>
+        </TreeView>
     </Grid>
 </Window>

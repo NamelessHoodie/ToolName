@@ -28,20 +28,36 @@ namespace HoodieSuite.MVVM.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int[] arr = new int[] {1,2,3,4,5,6,7,8,9,10 };
-            foreach (var item in Enumerable.Range(0, arr.Length).Reverse())
-            {
-                Debug.WriteLine(arr[item]);
-            } 
             var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 TestListBox.Items.Clear();
-                BND4 anibnd = BND4.Read(ofd.FileName);
-                TAE3 tae = TAE3.Read(anibnd.Files.First(item => item.ID == 5000000 + 4).Bytes);
-                foreach (var item in tae.Animations)
+                //BND4 anibnd = BND4.Read(ofd.FileName);
+                //TAE3 tae = TAE3.Read(anibnd.Files.First(item => item.ID == 5000000 + 4).Bytes);
+                foreach (var groups in GPARAM.Read(ofd.FileName).Groups)
                 {
-                    TestListBox.Items.Add(item.ID);
+                    var CommentsTreeViewItem = new TreeViewItem() { Header = "Comments" };
+                    var groupsTreeViewItem = new TreeViewItem() {  Header = groups.Name1 + " | " + groups.Name2 };
+                    groupsTreeViewItem.Items.Add(CommentsTreeViewItem);
+                    foreach (var comment in groups.Comments)
+                    {
+                        if (!string.IsNullOrWhiteSpace(comment))
+                        {
+                            var commentTreeViewItem = new TreeViewItem() { Header = comment };
+                            CommentsTreeViewItem.Items.Add(commentTreeViewItem);
+                        }
+                    }
+                    foreach (var param in groups.Params)
+                    {
+                        var paramTreeViewItem = new TreeViewItem() { Header = param.Name1 + " | " + param.Name2 };
+                        groupsTreeViewItem.Items.Add(paramTreeViewItem);
+                        foreach (var paramValue in param.Values)
+                        {
+                            var paramValueTreeViewItem = new TreeViewItem() { Header = "a" };
+                            paramTreeViewItem.Items.Add(paramValueTreeViewItem);
+                        }
+                    }
+                    TestListBox.Items.Add(groupsTreeViewItem);
                 }
             }
         }
