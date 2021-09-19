@@ -51,15 +51,64 @@ namespace HoodieSuite.MVVM.View
                     {
                         var paramTreeViewItem = new TreeViewItem() { Header = param.Name1 + " | " + param.Name2 };
                         groupsTreeViewItem.Items.Add(paramTreeViewItem);
-                        foreach (var paramValue in param.Values)
-                        {
-                            var paramValueTreeViewItem = new TreeViewItem() { Header = "a" };
-                            paramTreeViewItem.Items.Add(paramValueTreeViewItem);
-                        }
+
                     }
                     TestListBox.Items.Add(groupsTreeViewItem);
                 }
             }
+        }
+
+        private TreeViewItem Lol(GPARAM.Param param)
+        {
+            var paramValueTreeViewItem = new TreeViewItem();
+            var valuesList = param.Values;
+            List<GPARAM.ParamType> 
+            if (param.Type == GPARAM.ParamType.BoolA)
+            {
+                foreach (var value in param.Values)
+                {
+                    var valueCasted = (bool)value;
+                    var valueTreeView = new TreeViewItem() { Header=valueCasted.ToString()};
+                    paramValueTreeViewItem.Items.Add(valueTreeView);
+                }
+            }
+            else if (param.Type == GPARAM.ParamType.Byte)
+            {
+                foreach (var value in param.Values)
+                {
+                    var valueCasted = (byte)value;
+                    var valueTreeView = new TreeViewItem() { Header = valueCasted.ToString() };
+                    paramValueTreeViewItem.Items.Add(valueTreeView);
+                }
+            }
+            else if (param.Type == GPARAM.ParamType.Float)
+            {
+                foreach (var value in param.Values)
+                {
+                    var valueCasted = (float)value;
+                    var valueTreeView = new TreeViewItem() { Header = valueCasted.ToString() };
+                    paramValueTreeViewItem.Items.Add(valueTreeView);
+                }
+            }
+            else if (param.Type == GPARAM.ParamType.IntA)
+            {
+                foreach (var value in param.Values)
+                {
+                    var valueCasted = (int)value;
+                    var valueTreeView = new TreeViewItem() { Header = valueCasted.ToString() };
+                    paramValueTreeViewItem.Items.Add(valueTreeView);
+                }
+            }
+            else if (param.Type == GPARAM.ParamType.Short)
+            {
+                foreach (var value in param.Values)
+                {
+                    var valueCasted = (short)value;
+                    var valueTreeView = new TreeViewItem() { Header = valueCasted.ToString() };
+                    paramValueTreeViewItem.Items.Add(valueTreeView);
+                }
+            }
+            return paramValueTreeViewItem;
         }
     }
 }
