@@ -23,4 +23,5 @@
 - [ ] 10: Every file needs to have an handler, write subtools to handle every file that hasn't been handled.
 
 # Patreon
-If you would like to contribute to this project considering becoming my patreon https://www.patreon.com/namelesshoodie
+If you would like to contribute to this project considering becoming my patreon 
+https://www.patreon.com/namelesshoodie
