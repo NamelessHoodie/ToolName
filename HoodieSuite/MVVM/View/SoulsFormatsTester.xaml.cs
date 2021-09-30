@@ -62,7 +62,6 @@ namespace HoodieSuite.MVVM.View
         {
             var paramValueTreeViewItem = new TreeViewItem();
             var valuesList = param.Values;
-            List<GPARAM.ParamType> 
             if (param.Type == GPARAM.ParamType.BoolA)
             {
                 foreach (var value in param.Values)
