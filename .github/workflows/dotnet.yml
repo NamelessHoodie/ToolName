@@ -1,0 +1,31 @@
+name: .NET
+
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    runs-on: windows-latest
+    name: "Build"
+    steps:
+      - uses: actions/checkout@main
+        with:
+          submodules: true
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x' # SDK Version to use;
+        
+      - name: Restore
+        run: dotnet restore
+        
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish '${{ runner.workspace }}/HoodieSuite/HoodieSuite/HoodieSuite.csproj' --configuration Release -o deploy
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'HoodieSuite-SHA${{ github.sha }}'
+         path: '${{ runner.workspace }}/HoodieSuite/deploy'
