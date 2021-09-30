@@ -1,4 +1,4 @@
-name: .NETTest
+name: .NET
 
 on:
   push:
@@ -27,5 +27,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: 'HoodieSuite-SHA${{ github.sha }}'
+         name: 'HoodieSuite-SHA${{ github.sha }}'
          path: '${{ runner.workspace }}/HoodieSuite/deploy'
