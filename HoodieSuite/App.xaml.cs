@@ -13,5 +13,16 @@ namespace HoodieSuite
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+#if RELEASE
+            if (!e.Args.Any())
+            {
+                HoodieShared.Core.CheckUpdatesHoodieSuite(AppDomain.CurrentDomain.BaseDirectory);
+            }
+#endif
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
     }
 }

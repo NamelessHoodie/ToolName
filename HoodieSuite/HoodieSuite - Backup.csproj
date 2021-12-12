@@ -4,27 +4,20 @@
 		<OutputType>WinExe</OutputType>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
-		<TargetFrameworks>net5.0-windows</TargetFrameworks>
+		<TargetFrameworks>net46;netcoreapp3.1</TargetFrameworks>
 		<LangVersion>default</LangVersion>
-		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<AssemblyVersion>1.0.0.0</AssemblyVersion> <!--This is the version ID used by the updater-->
-		<FileVersion>1.0.0.0</FileVersion>
-		<Version>1.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Folder Include="Core\" />
 		<Folder Include="Icons\DefaultIcons\" />
+		<Folder Include="Tools\" />
 		<Folder Include="Themes\" />
-		<Folder Include="Tools\HoodieUpdater\" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Dragablz" Version="0.0.3.223" />
 		<PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
-		<PackageReference Include="Octokit" Version="0.50.0" />
-		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
 		<PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
 	</ItemGroup>
 
@@ -38,20 +31,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\HoodieShared\HoodieShared.csproj" />
 	  <ProjectReference Include="..\SoulsFormats\SoulsFormats.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Update="Definitions\ToolsDef.xml">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="Properties\dummy.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-	  <PackageReference Include="ConcurrentObservableCollections" Version="1.1.9" />
 	</ItemGroup>
 </Project>

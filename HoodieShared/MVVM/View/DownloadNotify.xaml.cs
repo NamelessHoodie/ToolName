@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace HoodieSuite.MVVM.View
+namespace HoodieShared.MVVM.View
 {
     /// <summary>
     /// Interaction logic for DownloadNotify.xaml

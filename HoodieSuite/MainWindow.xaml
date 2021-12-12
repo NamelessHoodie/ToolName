@@ -9,6 +9,7 @@
         xmlns:themes="clr-namespace:Dragablz.Themes;assembly=Dragablz"
         xmlns:view="clr-namespace:HoodieSuite.MVVM.View"
         mc:Ignorable="d"
+        Title="HoodieSuite"
         Background="{StaticResource WindowBackgroundMediumColor}"
         WindowStyle="SingleBorderWindow"
         AllowsTransparency="False"

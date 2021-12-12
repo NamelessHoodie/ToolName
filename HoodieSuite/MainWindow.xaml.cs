@@ -28,6 +28,7 @@ namespace HoodieSuite
             InitializeComponent();
 #if DEBUG
             new SoulsFormatsTester().Show();
+            new ParamStudioTestInterop().Show();
 #endif
         }
 

@@ -13,6 +13,7 @@ namespace HoodieSuite.Properties
         public static string resFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Properties", "Resources.resx");
         public static void AddOrUpdateResource(string key, string value)
         {
+            CreateResFileIfNotPresent();
             var resx = new List<DictionaryEntry>();
             using (var reader = new ResXResourceReader(resFilePath))
             {
@@ -39,13 +40,31 @@ namespace HoodieSuite.Properties
                 writer.Generate();
             }
         }
-        public static string ReadKeyFromResourceFile(string key)
+
+        private static void CreateResFileIfNotPresent()
         {
+            if (!File.Exists(resFilePath))
+            {
+                using (var writer = new ResXResourceWriter(resFilePath))
+                {
+                    writer.Generate();
+                }
+            }
+        }
+
+        public static string ReadKeyFromResourceFile(string key, string defaultVal = "")
+        {
+            CreateResFileIfNotPresent();
             using (var reader = new ResXResourceReader(resFilePath))
             {
                 var resx = reader.Cast<DictionaryEntry>().ToList();
-                var existingResource = resx.Where(r => r.Key.ToString() == key).FirstOrDefault();
-                return existingResource.Value.ToString();
+                var a = resx.Where(r => r.Key.ToString() == key);
+                if (a.Any())
+                {
+                    var existingResource = a.First();
+                    return existingResource.Value.ToString();
+                }
+                return defaultVal;
             }
         }
     }

@@ -12,6 +12,9 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Windows;
+using Octokit;
+using MessageBox = System.Windows.Forms.MessageBox;
+using System.Threading.Tasks;
 
 namespace HoodieSuite.MVVM.ViewModel
 {
@@ -107,22 +110,8 @@ namespace HoodieSuite.MVVM.ViewModel
                                                 File.WriteAllText(absoluteVersionFilePath, ToolVersion.Value);
                                                 string downloadFileName = GetFileNameFromUrl(toolStaticDownloadLink.Value);
                                                 string downloadFilePath = Path.Combine(absoluteToolPath, downloadFileName);
-                                                var dialog = new DownloadNotify($"Please be patient {toolName} is downloading, if your internet connection is slow this process might take a while.");
-                                                using (var client = new WebClient())
-                                                {
-                                                    client.DownloadProgressChanged += (sender, e) =>
-                                                    {
-                                                        var stuff = e as DownloadProgressChangedEventArgs;
-                                                        dialog.ProgressBar.Value = e.ProgressPercentage;
-                                                        if (e.ProgressPercentage == 100)
-                                                        {
-                                                            dialog.Close();
-                                                        }
-                                                    };
-                                                    client.DownloadFileTaskAsync(toolStaticDownloadLink.Value, downloadFilePath);
-                                                }
-                                                dialog.ShowDialog();
-                                                ExtractFile(downloadFilePath, absoluteToolPath);
+                                                HoodieShared.Core.DownloadWithProgressBar(toolName.Value, toolStaticDownloadLink.Value, downloadFilePath);
+                                                HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory ,downloadFilePath, absoluteToolPath);
                                                 File.Delete(downloadFilePath);
                                             }
                                         }
@@ -162,30 +151,25 @@ namespace HoodieSuite.MVVM.ViewModel
 
                 return Path.GetFileName(uri.LocalPath);
             }
-
-            void ExtractFile(string sourceArchive, string destination)
-            {
-                string zPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools", "7-Zip_HoodieSuite", "App", "7-Zip", "7zG.exe"); //add to proj and set CopyToOuputDir
-                try
-                {
-                    ProcessStartInfo pro = new ProcessStartInfo();
-                    pro.WindowStyle = ProcessWindowStyle.Hidden;
-                    pro.FileName = zPath;
-                    //Debug.WriteLine(string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination));
-                    pro.Arguments = string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination);
-                    Process x = Process.Start(pro);
-                    x.WaitForExit();
-                }
-                catch (System.Exception Ex)
-                {
-                    Debug.WriteLine(Ex);
-                }
-            }
         }
 
         public List<string> SupportedGames { get; set; }
         public string SelectedGame { get; set; }
         public ToolEntry SelectedTool { get; set; }
+        public void HoodieUpdater_Update()
+        {
+            bool isUpdate = true;
+            string updaterFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "HoodieUpdater");
+            if (!Directory.Exists(updaterFolderPath))
+            {
+                Directory.CreateDirectory(updaterFolderPath);
+            }
+            else if(isUpdate)
+            {
+                Directory.Delete(updaterFolderPath, true);
+                Directory.CreateDirectory(updaterFolderPath);
+            }
+        }
         public DashboardViewModel()
         {
             GameToolPage = ToolDefParserAndDownloader();

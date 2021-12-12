@@ -38,7 +38,10 @@ namespace HoodieSuite.MVVM.View
             InitializeComponent();
             var LastSelectedGame = ResourcesRW.ReadKeyFromResourceFile("Last_Selected_Game");
             GamesListBox.SelectedItem = LastSelectedGame;
-            tools.ItemsSource = ViewModel.GameToolPage[LastSelectedGame];
+            if (ViewModel.GameToolPage.TryGetValue(LastSelectedGame, out List<Model.ToolEntry> idk))
+            {
+                tools.ItemsSource = idk;
+            }
         }
 
         private void GameSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
