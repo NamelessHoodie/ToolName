@@ -70,11 +70,11 @@ public static string buildType = "-debug";
 
         public static void ExtractFile(string hoodieScriptBaseDirectoryPath, string sourceArchive, string destination)
         {
-            string zPath = Path.Combine(hoodieScriptBaseDirectoryPath, "Tools", "7-Zip_HoodieSuite", "App", "7-Zip", "7zG.exe"); //add to proj and set CopyToOuputDir
+            string zPath = Path.Combine(hoodieScriptBaseDirectoryPath, "Tools", "7-Zip_HoodieSuite", "App", "7-Zip", "7z.exe"); //add to proj and set CopyToOuputDir
             try
             {
                 ProcessStartInfo pro = new ProcessStartInfo();
-                pro.WindowStyle = ProcessWindowStyle.Minimized;
+                pro.CreateNoWindow = true;
                 pro.FileName = zPath;
                 //Debug.WriteLine(string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination));
                 pro.Arguments = string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination);
