@@ -46,9 +46,7 @@ namespace HoodieSuite
         private void ButtonMaximize_Click(object sender, RoutedEventArgs e)
         {
             if (this.WindowState != WindowState.Maximized)
-            {
                 this.WindowState = WindowState.Maximized;
-            }
             else
                 this.WindowState = WindowState.Normal;
         }
