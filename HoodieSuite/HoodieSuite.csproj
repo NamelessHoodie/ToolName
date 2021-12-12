@@ -8,16 +8,17 @@
 		<LangVersion>default</LangVersion>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<AssemblyVersion>1.0.0.0</AssemblyVersion> <!--This is the version ID used by the updater-->
-		<FileVersion>1.0.0.0</FileVersion>
-		<Version>1.0.0</Version>
+		<AssemblyVersion>1.0.5.0</AssemblyVersion> <!--This is the version ID used by the updater-->
+		<FileVersion>1.0.5.0</FileVersion>
+		<Version>1.0.5.0</Version>
+		<RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Folder Include="Core\" />
 		<Folder Include="Icons\DefaultIcons\" />
 		<Folder Include="Themes\" />
-		<Folder Include="Tools\HoodieUpdater\" />
+		<Folder Include="Tools\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -54,4 +55,8 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
 	  <PackageReference Include="ConcurrentObservableCollections" Version="1.1.9" />
 	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="xcopy &quot;$(SolutionDir)HoodieUpdater\bin\$(ConfigurationName)\net5.0-windows\&quot; &quot;$(OutDir)Tools\HoodieUpdater\&quot; /h /i /k /e /r /y" />
+	</Target>
 </Project>

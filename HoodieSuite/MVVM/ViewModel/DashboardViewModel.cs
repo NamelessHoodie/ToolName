@@ -25,7 +25,8 @@ namespace HoodieSuite.MVVM.ViewModel
 
         public static Dictionary<string, List<ToolEntry>> ToolDefParserAndDownloader()
         {
-            XElement toolDefinitionsXElement = XDocument.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Definitions", "ToolsDef.xml")).Root;
+            string xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Definitions", "ToolsDef.xml");
+            XElement toolDefinitionsXElement = XDocument.Load(xmlPath).Root;
             string absoluteToolsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools");
             var toolsDictionary = new Dictionary<string, List<ToolEntry>>();
             foreach (var gameXElement in toolDefinitionsXElement.Element("Games").Elements())
@@ -110,9 +111,11 @@ namespace HoodieSuite.MVVM.ViewModel
                                                 File.WriteAllText(absoluteVersionFilePath, ToolVersion.Value);
                                                 string downloadFileName = GetFileNameFromUrl(toolStaticDownloadLink.Value);
                                                 string downloadFilePath = Path.Combine(absoluteToolPath, downloadFileName);
-                                                HoodieShared.Core.DownloadWithProgressBar(toolName.Value, toolStaticDownloadLink.Value, downloadFilePath);
-                                                HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory ,downloadFilePath, absoluteToolPath);
-                                                File.Delete(downloadFilePath);
+                                                if (HoodieShared.Core.DownloadWithProgressBar(toolName.Value, toolStaticDownloadLink.Value, downloadFilePath))
+                                                {
+                                                    HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory, downloadFilePath, absoluteToolPath);
+                                                    File.Delete(downloadFilePath);
+                                                }
                                             }
                                         }
                                         else

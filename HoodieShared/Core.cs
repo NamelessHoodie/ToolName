@@ -1,5 +1,6 @@
 ﻿using HoodieShared.MVVM.View;
 using Octokit;
+using SevenZipExtractor;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,8 +15,15 @@ namespace HoodieShared
 {
     public class Core
     {
-        public static void DownloadWithProgressBar(string toolName, string downloadLink, string downloadFilePath)
+#if DEBUG
+        public static string buildType = "-debug";
+#endif
+#if RELEASE
+        public static string buildType = "-debug";
+#endif
+        public static bool DownloadWithProgressBar(string toolName, string downloadLink, string downloadFilePath)
         {
+            bool success = false;
             if (File.Exists(downloadFilePath))
             {
                 File.Delete(downloadFilePath);
@@ -23,86 +31,93 @@ namespace HoodieShared
             using (var client = new WebClient())
             {
                 DownloadNotify dialog = new DownloadNotify($"Please be patient {toolName} is downloading, if your internet connection is slow this process might take a while.");
-
+                client.DownloadFileCompleted += (sender, e) =>
+                {
+                    if (e.Error == null)
+                        success = true;
+                    dialog.Dispatcher.Invoke(() => { dialog.Close(); });
+                };
                 client.DownloadProgressChanged += (sender, e) =>
                 {
                     var stuff = e as DownloadProgressChangedEventArgs;
                     dialog.Dispatcher.Invoke(() => { dialog.ProgressBar.Value = e.ProgressPercentage; });
-                    if (e.ProgressPercentage == 100)
-                    {
-                        dialog.Dispatcher.Invoke(() => { dialog.Close(); });
-                    }
                 };
                 client.DownloadFileAsync(new Uri(downloadLink), downloadFilePath);
                 dialog.ShowDialog();
             }
+            return success;
         }
 
-        public static void HoodieSuiteUpdater(string versionId)
+        public static void HoodieSuiteUpdater(string versionId, string releaseVersion)
         {
-            var hoodieSuitePath = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
-            hoodieSuitePath = Directory.GetParent(hoodieSuitePath).FullName;
-            hoodieSuitePath = Directory.GetParent(hoodieSuitePath).FullName;
-            hoodieSuitePath = Directory.GetParent(hoodieSuitePath).FullName;
-            Console.WriteLine(hoodieSuitePath);
-            var latest = GithubGetLatestRelease("NamelessHoodie", "HoodieSuite");
-            if (latest.Assets.Any())
+            var hoodieSuitePath = Path.Combine(Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory), @"..\", @"..\");
+            var latest = GithubGetReleasesStable("NamelessHoodie", "HoodieSuite").Where(x => x.TagName == releaseVersion).First();
+            var asset = latest.Assets.First();
+            if (MessageBox.Show($"A new version of HoodieSuite is available = {latest.TagName}.\nThe curent version of HoodieScript is = {versionId}\nWould you like to download and install it?", "HoodieSuite Updater", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                if (latest.TagName != versionId)
+                string dldFileName = Path.GetFileName(asset.BrowserDownloadUrl);
+                string newFilePath = Path.Combine(hoodieSuitePath, @"..\", dldFileName);
+                if (DownloadWithProgressBar($"HoodieSuite - {latest.TagName}", asset.BrowserDownloadUrl, newFilePath))
                 {
-                    var asset = latest.Assets.First();
-                    if (MessageBox.Show($"A new version of HoodieSuite is available = {latest.TagName}.\nThe curent version of HoodieScript is = {versionId}\nWould you like to download and install it?", "HoodieSuite Updater", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    {
-                        string dldFileName = Path.GetFileName(asset.BrowserDownloadUrl);
-                        string newFilePath = Path.Combine(hoodieSuitePath, dldFileName);
-                        DownloadWithProgressBar($"HoodieSuite - {latest.TagName}", asset.BrowserDownloadUrl, newFilePath);
-                        ExtractFile(hoodieSuitePath, newFilePath, hoodieSuitePath);
-                    }
+                    //Directory.Delete(hoodieSuitePath, true);
+                    ExtractFile(hoodieSuitePath, newFilePath, hoodieSuitePath);
+                    File.Delete(newFilePath);
                 }
             }
             OpenHoodieSuite(hoodieSuitePath);
         }
 
-        public static void ExtractFile(string hoodieScriptBaseDirectoryPath, string sourceArchive, string destination)
+        public static bool ExtractFile(string hoodieScriptBaseDirectoryPath, string sourceArchive, string destination)
         {
-            string zPath = Path.Combine(hoodieScriptBaseDirectoryPath, "Tools", "7-Zip_HoodieSuite", "App", "7-Zip", "7zG.exe"); //add to proj and set CopyToOuputDir
             try
             {
-                ProcessStartInfo pro = new ProcessStartInfo();
-                pro.WindowStyle = ProcessWindowStyle.Hidden;
-                pro.FileName = zPath;
-                //Debug.WriteLine(string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination));
-                pro.Arguments = string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination);
-                Process x = Process.Start(pro);
-                x.WaitForExit();
+                using (ArchiveFile archiveFile = new ArchiveFile(sourceArchive))
+                {
+                    archiveFile.Extract(delegate (Entry entry)
+                    {
+                        string text = Path.Combine(destination, entry.FileName);
+                        if (entry.IsFolder && !text.Contains("HoodieUpdater"))
+                        {
+                            return text;
+                        }
+
+                        return (!File.Exists(text) || true) ? text : null;
+                    });
+                }
             }
-            catch (System.Exception Ex)
+            catch (Exception e)
             {
-                Debug.WriteLine(Ex);
+                return false;
             }
+            return true;
         }
 
         public static void CheckUpdatesHoodieSuite(string hoodieScriptBaseDirectoryPath)
         {
             string assemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string zPath = Path.Combine(hoodieScriptBaseDirectoryPath, "Tools", "HoodieUpdater", "HoodieUpdater.exe"); //add to proj and set CopyToOuputDir
-            var a = GithubGetLatestRelease("NamelessHoodie", "HoodieSuite");
-            var b = a.TagName;
-            if (assemblyVersion != b)
+            var a = GithubGetLatestReleaseStable("NamelessHoodie", "HoodieSuite");
+            if (a != null)
             {
-                try
+                var targetVersion = a.TagName;
+                string assemblyVersionFormatted = $"{assemblyVersion}{buildType}";
+                if (assemblyVersionFormatted != targetVersion)
                 {
-                    ProcessStartInfo pro = new ProcessStartInfo();
-                    pro.WindowStyle = ProcessWindowStyle.Minimized;
-                    pro.FileName = zPath;
-                    pro.Arguments = assemblyVersion;
-                    Process x = Process.Start(pro);
-                    System.Windows.Application.Current.Shutdown();
-                    //x.WaitForExit();
-                }
-                catch (System.Exception Ex)
-                {
-                    Debug.WriteLine(Ex);
+                    try
+                    {
+                        ProcessStartInfo pro = new ProcessStartInfo();
+                        pro.WindowStyle = ProcessWindowStyle.Minimized;
+                        pro.FileName = zPath;
+                        pro.ArgumentList.Add(assemblyVersionFormatted);
+                        pro.ArgumentList.Add(targetVersion);
+                        Process x = Process.Start(pro);
+                        System.Windows.Application.Current.Shutdown();
+                        x.WaitForExit();
+                    }
+                    catch (System.Exception Ex)
+                    {
+                        Debug.WriteLine(Ex);
+                    }
                 }
             }
         }
@@ -127,19 +142,25 @@ namespace HoodieShared
 
         public static IReadOnlyList<ReleaseAsset> GithubGetLatestReleaseAssets(string userName, string repositoryName)
         {
-            return GithubGetLatestRelease(userName, repositoryName).Assets;
+            return GithubGetLatestReleaseStable(userName, repositoryName).Assets;
         }
 
-        public static Release? GithubGetLatestRelease(string userName, string repositoryName)
+        public static Release? GithubGetLatestReleaseStable(string userName, string repositoryName)
         {
-            var client = new GitHubClient(new ProductHeaderValue("HoodieUpdater"));
-            var user = client.User.Get("NamelessHoodie").GetAwaiter().GetResult();
-            var releases = client.Repository.Release.GetAll(userName, repositoryName).GetAwaiter().GetResult();
+            IEnumerable<Release> releases = GithubGetReleasesStable(userName, repositoryName);
             if (releases.Any())
             {
                 return releases.First();
             }
             return null;
+        }
+
+        private static IEnumerable<Release> GithubGetReleasesStable(string userName, string repositoryName)
+        {
+            var client = new GitHubClient(new ProductHeaderValue("HoodieUpdater"));
+            var user = client.User.Get("NamelessHoodie").GetAwaiter().GetResult();
+            var releases = client.Repository.Release.GetAll(userName, repositoryName).GetAwaiter().GetResult().Where(x => x.TagName.EndsWith(buildType));
+            return releases;
         }
     }
 }

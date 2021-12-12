@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulsFormats", "SoulsFormat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoodieShared", "HoodieShared\HoodieShared.csproj", "{CCD7B5D4-D999-421A-8CFA-A6FC7BCA1442}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoodieUpdater", "HoodieUpdater\HoodieUpdater.csproj", "{623BB81A-6642-4360-AD4F-29C45345D83E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoodieUpdater", "HoodieUpdater\HoodieUpdater.csproj", "{623BB81A-6642-4360-AD4F-29C45345D83E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

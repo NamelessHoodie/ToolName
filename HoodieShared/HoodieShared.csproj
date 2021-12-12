@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <PackageReference Include="Octokit" Version="0.50.0" />
+    <PackageReference Include="SevenZipExtractor" Version="1.0.15" />
+    <PackageReference Include="SharpCompress" Version="0.30.1" />
   </ItemGroup>
 
   <ItemGroup>
