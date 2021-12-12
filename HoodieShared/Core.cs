@@ -30,14 +30,16 @@ public static string buildType = "-debug";
             {
                 DownloadNotify dialog = new DownloadNotify($"Please be patient {toolName} is downloading, if your internet connection is slow this process might take a while.");
 
+                client.DownloadFileCompleted += (sender, e) =>
+                {
+                    dialog.Dispatcher.Invoke(() => { dialog.Close(); });
+                    if (e.Error != null)
+                        MessageBox.Show(e.Error.Message);
+                };
                 client.DownloadProgressChanged += (sender, e) =>
                 {
                     var stuff = e as DownloadProgressChangedEventArgs;
                     dialog.Dispatcher.Invoke(() => { dialog.ProgressBar.Value = e.ProgressPercentage; });
-                    if (e.ProgressPercentage == 100)
-                    {
-                        dialog.Dispatcher.Invoke(() => { dialog.Close(); });
-                    }
                 };
                 client.DownloadFileAsync(new Uri(downloadLink), downloadFilePath);
                 dialog.ShowDialog();
