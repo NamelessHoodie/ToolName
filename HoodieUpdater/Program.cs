@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Windows;
 using HoodieShared;
 namespace HoodieUpdater
 {
@@ -7,7 +9,10 @@ namespace HoodieUpdater
         [STAThread]
         static void Main(string[] args)
         {
-            HoodieShared.Core.HoodieSuiteUpdater(args[0]);
+#if DEBUG
+                Debugger.Launch();
+#endif
+            HoodieShared.Core.HoodieSuiteUpdater(args[0], args[1]);
         }
     }
 }
