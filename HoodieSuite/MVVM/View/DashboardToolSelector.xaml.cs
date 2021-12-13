@@ -1,4 +1,5 @@
-﻿using HoodieSuite.MVVM.ViewModel;
+﻿using HoodieSuite.MVVM.Model;
+using HoodieSuite.MVVM.ViewModel;
 using HoodieSuite.Properties;
 using System;
 using System.Collections.Generic;
@@ -38,21 +39,21 @@ namespace HoodieSuite.MVVM.View
             InitializeComponent();
             var LastSelectedGame = ResourcesRW.ReadKeyFromResourceFile("Last_Selected_Game");
             GamesListBox.SelectedItem = LastSelectedGame;
-            if (ViewModel.GameToolPage.TryGetValue(LastSelectedGame, out List<Model.ToolEntry> idk))
+            if (ViewModel.GameToolPage.TryGetValue(LastSelectedGame, out Dictionary<string, ToolEntry> gameToolsDictionary))
             {
-                tools.ItemsSource = idk;
+                tools.ItemsSource = gameToolsDictionary.Values;
             }
         }
 
         private void GameSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            tools.ItemsSource = ViewModel.GameToolPage[ViewModel.SelectedGame];
+            tools.ItemsSource = ViewModel.GameToolPage[ViewModel.SelectedGame].Values;
             ResourcesRW.AddOrUpdateResource("Last_Selected_Game", ViewModel.SelectedGame);
         }
 
         private void Double_Click_LaunchTool(object sender, MouseButtonEventArgs e)
         {
-            if (e.ClickCount >= 2)
+            if (e.ClickCount >= 2 && ViewModel.SelectedTool.isDownloaded)
             {
                 Process proc = Process.Start(ViewModel.SelectedTool.ToolPath);
                 Debug.WriteLine($"Launching: {ViewModel.SelectedTool.ToolPath}");

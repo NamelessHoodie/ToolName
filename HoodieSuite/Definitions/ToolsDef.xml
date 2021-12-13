@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ToolDefinitions>
 	<Games>
-		<Game GameType="Demon's Souls">
+		<Game GameType="Demon's Souls/Dark Souls - PTDE/Dark Souls - Remastered/Dark Souls 2/Dark Souls 2 - SOTFS/Bloodborne/Dark Souls 3/Sekiro - Shadows Die Twice">
 			<Tool Name="Dark Souls Param Studio"
 				Description="A Param Editor"
 				StaticDownloadLink="https://github.com/Philiquaz/DSParamStudio/releases/download/0.4.3b/ParamStudio0.4.3b.rar"
@@ -12,98 +12,20 @@
 				StaticDownloadLink="https://github.com/NamelessHoodie/FSVisualBND/releases/download/v1.1.0.2/FSVisualBND.V1.1.0.2.zip"
 				ToolPath="FSVisualBND\FSVisualBND.exe"
 				ToolVersion="1.1.0.2"/>
-		</Game>
-		<Game GameType="Dark Souls - PTDE">
-			<Tool Name="Dark Souls Anim Studio"
-				Description="Edits the TimeAct Editor files of Dark Souls, Bloodborne, Dark Souls 3, and Sekiro."
-				StaticDownloadLink="https://github.com/Meowmaritus/DSAnimStudio/releases/download/ver3.0.5/DSAnimStudio_v3.0.5.zip"
-				ToolPath="DSAnimStudio\DS Anim Studio.exe"
-				ToolVersion="3.0.5"/>
 			<Tool Name="Dark Souls Map Studio"
 				Description="DS Map Studio is a standalone map editor for all the souls games."
 				StaticDownloadLink="https://github.com/katalash/DSMapStudio/releases/download/preview11/DSMapStudio-preview11.7z"
 				ToolPath="DSMapStudio\netcoreapp3.1\DSMapStudio.exe"
 				ToolVersion="preview11"/>
-			<Tool Name="Dark Souls Param Studio"
-				Description="A Param Editor"
-				StaticDownloadLink="https://github.com/Philiquaz/DSParamStudio/releases/download/0.4.3b/ParamStudio0.4.3b.rar"
-				ToolPath="DSParamStudio\DSParamStudio.exe"
-				ToolVersion="0.4.3b"/>
-			<Tool Name="FSVisualBND"
-				Description="A GUI binder file Editor, expecially useful for quickly adding/modifying files"
-				StaticDownloadLink="https://github.com/NamelessHoodie/FSVisualBND/releases/download/v1.1.0.2/FSVisualBND.V1.1.0.2.zip"
-				ToolPath="FSVisualBND\FSVisualBND.exe"
-				ToolVersion="1.1.0.2"/>
 		</Game>
-		<Game GameType="Dark Souls 2">
-			<Tool Name="FSVisualBND"
-				Description="A GUI binder file Editor, expecially useful for quickly adding/modifying files"
-				StaticDownloadLink="https://github.com/NamelessHoodie/FSVisualBND/releases/download/v1.1.0.2/FSVisualBND.V1.1.0.2.zip"
-				ToolPath="FSVisualBND\FSVisualBND.exe"
-				ToolVersion="1.1.0.2"/>
-		</Game>
-		<Game GameType="Bloodborne">
+		<Game GameType="Dark Souls - PTDE/Dark Souls - Remastered/Bloodborne/Dark Souls 3/Sekiro - Shadows Die Twice">
 			<Tool Name="Dark Souls Anim Studio"
 				Description="Edits the TimeAct Editor files of Dark Souls, Bloodborne, Dark Souls 3, and Sekiro."
 				StaticDownloadLink="https://github.com/Meowmaritus/DSAnimStudio/releases/download/ver3.0.5/DSAnimStudio_v3.0.5.zip"
 				ToolPath="DSAnimStudio\DS Anim Studio.exe"
 				ToolVersion="3.0.5"/>
-			<Tool Name="Dark Souls Map Studio"
-				Description="DS Map Studio is a standalone map editor for all the souls games."
-				StaticDownloadLink="https://github.com/katalash/DSMapStudio/releases/download/preview11/DSMapStudio-preview11.7z"
-				ToolPath="DSMapStudio\netcoreapp3.1\DSMapStudio.exe"
-				ToolVersion="preview11"/>
-			<Tool Name="Dark Souls Param Studio"
-				Description="A Param Editor"
-				StaticDownloadLink="https://github.com/Philiquaz/DSParamStudio/releases/download/0.4.3b/ParamStudio0.4.3b.rar"
-				ToolPath="DSParamStudio\DSParamStudio.exe"
-				ToolVersion="0.4.3b"/>
-			<Tool Name="FSVisualBND"
-				Description="A GUI binder file Editor, expecially useful for quickly adding/modifying files"
-				StaticDownloadLink="https://github.com/NamelessHoodie/FSVisualBND/releases/download/v1.1.0.2/FSVisualBND.V1.1.0.2.zip"
-				ToolPath="FSVisualBND\FSVisualBND.exe"
-				ToolVersion="1.1.0.2"/>
 		</Game>
-		<Game GameType="Dark Souls 2 - SOTFS">
-			<Tool Name="FSVisualBND"
-				Description="A GUI binder file Editor, expecially useful for quickly adding/modifying files"
-				StaticDownloadLink="https://github.com/NamelessHoodie/FSVisualBND/releases/download/v1.1.0.2/FSVisualBND.V1.1.0.2.zip"
-				ToolPath="FSVisualBND\FSVisualBND.exe"
-				ToolVersion="1.1.0.2"/>
-		</Game>
-		<Game GameType="Dark Souls - Remastered">
-			<Tool Name="Dark Souls Anim Studio"
-				Description="Edits the TimeAct Editor files of Dark Souls, Bloodborne, Dark Souls 3, and Sekiro."
-				StaticDownloadLink="https://github.com/Meowmaritus/DSAnimStudio/releases/download/ver3.0.5/DSAnimStudio_v3.0.5.zip"
-				ToolPath="DSAnimStudio\DS Anim Studio.exe"
-				ToolVersion="3.0.5"/>
-			<Tool Name="Dark Souls Map Studio"
-				Description="DS Map Studio is a standalone map editor for all the souls games."
-				StaticDownloadLink="https://github.com/katalash/DSMapStudio/releases/download/preview11/DSMapStudio-preview11.7z"
-				ToolPath="DSMapStudio\netcoreapp3.1\DSMapStudio.exe"
-				ToolVersion="preview11"/>
-			<Tool Name="Dark Souls Param Studio"
-				Description="A Param Editor"
-				StaticDownloadLink="https://github.com/Philiquaz/DSParamStudio/releases/download/0.4.3b/ParamStudio0.4.3b.rar"
-				ToolPath="DSParamStudio\DSParamStudio.exe"
-				ToolVersion="0.4.3b"/>
-			<Tool Name="FSVisualBND"
-				Description="A GUI binder file Editor, expecially useful for quickly adding/modifying files"
-				StaticDownloadLink="https://github.com/NamelessHoodie/FSVisualBND/releases/download/v1.1.0.2/FSVisualBND.V1.1.0.2.zip"
-				ToolPath="FSVisualBND\FSVisualBND.exe"
-				ToolVersion="1.1.0.2"/>
-		</Game>
-		<Game GameType="Dark Souls 3">
-			<Tool Name="Dark Souls Anim Studio"
-				Description="Edits the TimeAct Editor files of Dark Souls, Bloodborne, Dark Souls 3, and Sekiro."
-				StaticDownloadLink="https://github.com/Meowmaritus/DSAnimStudio/releases/download/ver3.0.5/DSAnimStudio_v3.0.5.zip"
-				ToolPath="DSAnimStudio\DS Anim Studio.exe"
-				ToolVersion="3.0.5"/>
-			<Tool Name="Dark Souls Map Studio"
-				Description="DS Map Studio is a standalone map editor for all the souls games."
-				StaticDownloadLink="https://github.com/katalash/DSMapStudio/releases/download/preview11/DSMapStudio-preview11.7z"
-				ToolPath="DSMapStudio\netcoreapp3.1\DSMapStudio.exe"
-				ToolVersion="preview11"/>
+		<Game GameType="Dark Souls 3/Sekiro - Shadows Die Twice">
 			<Tool Name="Dark Script 3"
 				Description="User-friendly editor for FromSoftware's EMEVD format."
 				StaticDownloadLink="https://github.com/AinTunez/DarkScript3/releases/download/3.2.2/DarkScript3_2_2.zip"
@@ -114,43 +36,6 @@
 				StaticDownloadLink="https://github.com/NamelessHoodie/Dantelion-FXR3-Editor/releases/download/v0.1.0.0/Dantelion-FXR3-Editor-SHA105459db9fe726268a939eb2d4426c8938090c2e.zip"
 				ToolPath="DFXR3E\DFXR3Editor.exe"
 				ToolVersion="0.1.0.0"/>
-			<Tool Name="Dark Souls Param Studio"
-				Description="A Param Editor"
-				StaticDownloadLink="https://github.com/Philiquaz/DSParamStudio/releases/download/0.4.3b/ParamStudio0.4.3b.rar"
-				ToolPath="DSParamStudio\DSParamStudio.exe"
-				ToolVersion="0.4.3b"/>
-			<Tool Name="FSVisualBND"
-				Description="A GUI binder file Editor, expecially useful for quickly adding/modifying files"
-				StaticDownloadLink="https://github.com/NamelessHoodie/FSVisualBND/releases/download/v1.1.0.2/FSVisualBND.V1.1.0.2.zip"
-				ToolPath="FSVisualBND\FSVisualBND.exe"
-				ToolVersion="1.1.0.2"/>
-		</Game>
-		<Game GameType="Sekiro - Shadows Die Twice">
-			<Tool Name="Dark Souls Anim Studio"
-				Description="Edits the TimeAct Editor files of Dark Souls, Bloodborne, Dark Souls 3, and Sekiro."
-				StaticDownloadLink="https://github.com/Meowmaritus/DSAnimStudio/releases/download/ver3.0.5/DSAnimStudio_v3.0.5.zip"
-				ToolPath="DSAnimStudio\DS Anim Studio.exe"
-				ToolVersion="3.0.5"/>
-			<Tool Name="Dark Souls Map Studio"
-				Description="DS Map Studio is a standalone map editor for all the souls games."
-				StaticDownloadLink="https://github.com/katalash/DSMapStudio/releases/download/preview11/DSMapStudio-preview11.7z"
-				ToolPath="DSMapStudio\netcoreapp3.1\DSMapStudio.exe"
-				ToolVersion="preview11"/>
-			<Tool Name="Dantelion FXR3 Editor"
-				Description="A visual .fxr editor for dark souls 3."
-				StaticDownloadLink="https://github.com/NamelessHoodie/Dantelion-FXR3-Editor/releases/download/v0.1.0.0/Dantelion-FXR3-Editor-SHA105459db9fe726268a939eb2d4426c8938090c2e.zip"
-				ToolPath="DFXR3E\DFXR3Editor.exe"
-				ToolVersion="0.1.0.0"/>
-			<Tool Name="Dark Souls Param Studio"
-				Description="A Param Editor"
-				StaticDownloadLink="https://github.com/Philiquaz/DSParamStudio/releases/download/0.4.3b/ParamStudio0.4.3b.rar"
-				ToolPath="DSParamStudio\DSParamStudio.exe"
-				ToolVersion="0.4.3b"/>
-			<Tool Name="FSVisualBND"
-				Description="A GUI binder file Editor, expecially useful for quickly adding/modifying files"
-				StaticDownloadLink="https://github.com/NamelessHoodie/FSVisualBND/releases/download/v1.1.0.2/FSVisualBND.V1.1.0.2.zip"
-				ToolPath="FSVisualBND\FSVisualBND.exe"
-				ToolVersion="1.1.0.2"/>
 		</Game>
 	</Games>
 </ToolDefinitions> 

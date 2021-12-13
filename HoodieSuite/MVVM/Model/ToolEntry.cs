@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.PlatformUI;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -9,7 +10,7 @@ using System.Windows.Controls;
 
 namespace HoodieSuite.MVVM.Model
 {
-    public class ToolEntry
+    public class ToolEntry : ObservableObject
     {
         private string GetNumbers(string text)
         {
@@ -46,7 +47,20 @@ namespace HoodieSuite.MVVM.Model
         }
         public string ToolName { get; set; }
         public string ToolDescription { get; set; }
+        public string ToolDownloadUrl { get; set; }
         public string ToolPath { get; set; }
+        public string ToolVersion { get; set; }
+        public bool isDownloaded 
+        {
+            get 
+            {
+                return File.Exists(ToolPath);
+            }
+        }
+        public void NotifyDownloadedStateChanged()
+        {
+            NotifyPropertyChanged(nameof(isDownloaded));
+        }
         public UserControl ToolView { get; set; }
         public ToolEntry() 
         {
