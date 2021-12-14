@@ -56,13 +56,12 @@ namespace HoodieSuite.MVVM.View
             if (e.ClickCount >= 2)   
             {
                 var toolsDirectoryPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools");
-                if (!ViewModel.SelectedTool.isDownloaded)
+                if (DashboardViewModel.TryDownloadTool(toolsDirectoryPath, ViewModel.SelectedTool))
                 {
-                    DashboardViewModel.TryDownloadTool(toolsDirectoryPath, ViewModel.SelectedTool);
+                    var exePath = System.IO.Path.Combine(toolsDirectoryPath, ViewModel.SelectedTool.ToolPath);
+                    Process proc = Process.Start(System.IO.Path.GetFullPath(exePath));
+                    Debug.WriteLine($"Launching: {ViewModel.SelectedTool.ToolPath}");
                 }
-                var exePath = System.IO.Path.Combine(toolsDirectoryPath, ViewModel.SelectedTool.ToolPath);
-                Process proc = Process.Start(System.IO.Path.GetFullPath(exePath));
-                Debug.WriteLine($"Launching: {ViewModel.SelectedTool.ToolPath}");
             }
         }
     }

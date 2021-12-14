@@ -54,7 +54,7 @@ namespace HoodieSuite.MVVM.Model
         {
             get 
             {
-                return File.Exists(ToolPath);
+                return File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools" ,ToolPath));
             }
         }
         public void NotifyDownloadedStateChanged()

@@ -40,7 +40,7 @@ namespace HoodieSuite.MVVM.ViewModel
 
             //Create list to deserialize the json into
             List<JsonToolsModel> listJson;
-            
+
             //Deserialize json
             using (TextReader reader = new StreamReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Definitions", "ToolsDef.json")))
             using (var jsonRreader = new Newtonsoft.Json.JsonTextReader(reader))
@@ -52,7 +52,7 @@ namespace HoodieSuite.MVVM.ViewModel
             Dictionary<string, Dictionary<string, ToolEntry>> gameList = new Dictionary<string, Dictionary<string, ToolEntry>>();
 
             Dictionary<string, ToolEntry> allTools = new Dictionary<string, ToolEntry>();
-            
+
             //Tool Lists
             foreach (var toolsModel in listJson)
             {
@@ -251,28 +251,33 @@ namespace HoodieSuite.MVVM.ViewModel
             return Path.GetFileName(uri.LocalPath);
         }
 
-        public static bool TryDownloadTool(string toolsFolderPath ,ToolEntry tool)
+        private static bool AskUserIfDownload(ToolEntry tool, string oldVersionStr = null)
         {
+            string text;
+            string label;
+
+            if (oldVersionStr != null)
+            {
+                text = $"New version of {tool.ToolName} found {tool.ToolVersion}\nWould you like to download it? The current Version is {oldVersionStr}.";
+                label = $"Update found!";
+            }
+            else
+            {
+                text = $"{tool.ToolName} is not installed\nWould you like to download it?";
+                label = $"{tool.ToolName} not found.";
+            }
+            if (MessageBox.Show(text, label, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                return true;
+            return false;
+        }
+
+        public static bool TryDownloadTool(string toolsFolderPath, ToolEntry tool, bool isUserPromptDl = true)
+        {
+            string absoluteToolPath = Path.Combine(toolsFolderPath, tool.ToolPath.Split('\\').First());
+            string absoluteVersionFilePath = Path.Combine(absoluteToolPath, $"{tool.ToolName.Replace(' ', '_')}.hsvf");
             if (!tool.isDownloaded)
             {
-                string absoluteToolPath = Path.Combine(toolsFolderPath, tool.ToolPath.Split('\\').First());
-                string absoluteToolPathExe = Path.Combine(toolsFolderPath, tool.ToolPath);
-                string absoluteVersionFilePath = Path.Combine(absoluteToolPath, $"{tool.ToolName.Replace(' ', '_')}.hsvf");
-            DirectorySetup:
-                if (Directory.Exists(absoluteToolPath))
-                {
-                    if (!File.Exists(absoluteVersionFilePath))
-                    {
-                        File.Create(absoluteVersionFilePath).Dispose();
-                    }
-                    string versionFileText = File.ReadAllText(absoluteVersionFilePath);
-                    if (versionFileText.Trim() != tool.ToolVersion)
-                    {
-                        Directory.Delete(absoluteToolPath, true);
-                        goto DirectorySetup;
-                    }
-                }
-                else
+                if (isUserPromptDl ? AskUserIfDownload(tool) : true)
                 {
                     Directory.CreateDirectory(absoluteToolPath);
                     File.Create(absoluteVersionFilePath).Dispose();
@@ -283,10 +288,46 @@ namespace HoodieSuite.MVVM.ViewModel
                     HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory, downloadFilePath, absoluteToolPath);
                     File.Delete(downloadFilePath);
                     tool.NotifyDownloadedStateChanged();
-                    return true;
+                }
+                return true;
+
+            }
+            return TryUpdateTool(toolsFolderPath, tool, isUserPromptDl);
+        }
+
+        private static bool TryUpdateTool(string toolsFolderPath, ToolEntry tool, bool isUserPromptDl = true)
+        {
+            string absoluteToolPath = Path.Combine(toolsFolderPath, tool.ToolPath.Split('\\').First());
+            string absoluteToolPathExe = Path.Combine(toolsFolderPath, tool.ToolPath);
+            string absoluteVersionFilePath = Path.Combine(absoluteToolPath, $"{tool.ToolName.Replace(' ', '_')}.hsvf");
+            if (Directory.Exists(absoluteToolPath))
+            {
+                if (!File.Exists(absoluteVersionFilePath))
+                {
+                    File.Create(absoluteVersionFilePath).Dispose();
+                }
+                string versionFileText = File.ReadAllText(absoluteVersionFilePath);
+                if (versionFileText.Trim() != tool.ToolVersion)
+                {
+                TryUpdateTool:
+                    try
+                    {
+                        File.Delete(absoluteToolPathExe);
+                    }
+                    catch (Exception)
+                    {
+                        if (MessageBox.Show($"WARNING: Could not update {tool.ToolName}.\nVersion {versionFileText.Trim()} => {tool.ToolVersion}\n{tool.ToolPath} was already being accessed.", $"WARNING: Could not update { tool.ToolName}", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning) == DialogResult.Retry)
+                        {
+                            TryUpdateTool(toolsFolderPath, tool, false);
+
+                        }
+                        return true;
+                    }
+                    Directory.Delete(absoluteToolPath, true);
+                    TryDownloadTool(toolsFolderPath, tool, isUserPromptDl);
                 }
             }
-            return false;
+            return true;
         }
 
         public List<string> SupportedGames { get; set; }
@@ -300,7 +341,7 @@ namespace HoodieSuite.MVVM.ViewModel
             {
                 Directory.CreateDirectory(updaterFolderPath);
             }
-            else if(isUpdate)
+            else if (isUpdate)
             {
                 Directory.Delete(updaterFolderPath, true);
                 Directory.CreateDirectory(updaterFolderPath);
