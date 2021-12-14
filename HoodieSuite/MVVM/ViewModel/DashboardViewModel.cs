@@ -279,55 +279,59 @@ namespace HoodieSuite.MVVM.ViewModel
             {
                 if (isUserPromptDl ? AskUserIfDownload(tool) : true)
                 {
-                    Directory.CreateDirectory(absoluteToolPath);
-                    File.Create(absoluteVersionFilePath).Dispose();
-                    File.WriteAllText(absoluteVersionFilePath, tool.ToolVersion);
-                    string downloadFileName = GetFileNameFromUrl(tool.ToolDownloadUrl);
-                    string downloadFilePath = Path.Combine(absoluteToolPath, downloadFileName);
-                    HoodieShared.Core.DownloadWithProgressBar(tool.ToolName, tool.ToolDownloadUrl, downloadFilePath);
-                    HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory, downloadFilePath, absoluteToolPath);
-                    File.Delete(downloadFilePath);
-                    tool.NotifyDownloadedStateChanged();
+                    WriteToolToDisk(tool, absoluteToolPath, absoluteVersionFilePath);
                 }
-                return true;
-
             }
-            return TryUpdateTool(toolsFolderPath, tool, isUserPromptDl);
+            return false;
+            //return TryUpdateTool(toolsFolderPath, tool, isUserPromptDl);
         }
 
-        private static bool TryUpdateTool(string toolsFolderPath, ToolEntry tool, bool isUserPromptDl = true)
+        private static void WriteToolToDisk(ToolEntry tool, string absoluteToolPath, string absoluteVersionFilePath)
+        {
+            Directory.CreateDirectory(absoluteToolPath);
+            if (!File.Exists(absoluteVersionFilePath))
+                File.Create(absoluteVersionFilePath).Dispose();
+            File.WriteAllText(absoluteVersionFilePath, tool.ToolVersion);
+            string downloadFileName = GetFileNameFromUrl(tool.ToolDownloadUrl);
+            string downloadFilePath = Path.Combine(absoluteToolPath, downloadFileName);
+            HoodieShared.Core.DownloadWithProgressBar(tool.ToolName, tool.ToolDownloadUrl, downloadFilePath);
+            HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory, downloadFilePath, absoluteToolPath);
+            File.Delete(downloadFilePath);
+            tool.NotifyDownloadedStateChanged();
+        }
+
+        public static bool TryUpdateTool(string toolsFolderPath, ToolEntry tool, bool isUserPromptDl = true)
         {
             string absoluteToolPath = Path.Combine(toolsFolderPath, tool.ToolPath.Split('\\').First());
             string absoluteToolPathExe = Path.Combine(toolsFolderPath, tool.ToolPath);
             string absoluteVersionFilePath = Path.Combine(absoluteToolPath, $"{tool.ToolName.Replace(' ', '_')}.hsvf");
             if (Directory.Exists(absoluteToolPath))
             {
-                if (!File.Exists(absoluteVersionFilePath))
+                string versionFileText = File.ReadAllText(absoluteVersionFilePath).Trim();
+                if (versionFileText != tool.ToolVersion)
                 {
-                    File.Create(absoluteVersionFilePath).Dispose();
-                }
-                string versionFileText = File.ReadAllText(absoluteVersionFilePath);
-                if (versionFileText.Trim() != tool.ToolVersion)
-                {
-                TryUpdateTool:
+                    ComeBackLol:
                     try
                     {
                         File.Delete(absoluteToolPathExe);
                     }
                     catch (Exception)
                     {
-                        if (MessageBox.Show($"WARNING: Could not update {tool.ToolName}.\nVersion {versionFileText.Trim()} => {tool.ToolVersion}\n{tool.ToolPath} was already being accessed.", $"WARNING: Could not update { tool.ToolName}", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning) == DialogResult.Retry)
+                        if (MessageBox.Show($"WARNING: Could not update {tool.ToolName}.\nVersion {versionFileText} => {tool.ToolVersion}\n{tool.ToolPath} was already being accessed.", $"WARNING: Could not update { tool.ToolName}", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning) == DialogResult.Retry)
                         {
-                            TryUpdateTool(toolsFolderPath, tool, false);
-
+                            goto ComeBackLol;
                         }
-                        return true;
+                        return false;
                     }
-                    Directory.Delete(absoluteToolPath, true);
-                    TryDownloadTool(toolsFolderPath, tool, isUserPromptDl);
+                    if (isUserPromptDl ? AskUserIfDownload(tool, versionFileText) : true)
+                    {
+                        Directory.Delete(absoluteToolPath, true);
+                        WriteToolToDisk(tool, absoluteToolPath, absoluteVersionFilePath);
+                    }
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         public List<string> SupportedGames { get; set; }
