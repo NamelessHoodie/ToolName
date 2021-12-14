@@ -53,9 +53,15 @@ namespace HoodieSuite.MVVM.View
 
         private void Double_Click_LaunchTool(object sender, MouseButtonEventArgs e)
         {
-            if (e.ClickCount >= 2 && ViewModel.SelectedTool.isDownloaded)
+            if (e.ClickCount >= 2)   
             {
-                Process proc = Process.Start(ViewModel.SelectedTool.ToolPath);
+                var toolsDirectoryPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools");
+                if (!ViewModel.SelectedTool.isDownloaded)
+                {
+                    DashboardViewModel.TryDownloadTool(toolsDirectoryPath, ViewModel.SelectedTool);
+                }
+                var exePath = System.IO.Path.Combine(toolsDirectoryPath, ViewModel.SelectedTool.ToolPath);
+                Process proc = Process.Start(System.IO.Path.GetFullPath(exePath));
                 Debug.WriteLine($"Launching: {ViewModel.SelectedTool.ToolPath}");
             }
         }

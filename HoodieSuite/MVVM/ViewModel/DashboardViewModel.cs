@@ -27,6 +27,8 @@ namespace HoodieSuite.MVVM.ViewModel
 
         public static Dictionary<string, Dictionary<string, ToolEntry>> ToolDefParserAndDownloader()
         {
+
+
             //Get Tools Folder Path
             string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string absoluteToolsFolderPath = Path.Combine(exeDirectory, "Tools");
@@ -78,7 +80,7 @@ namespace HoodieSuite.MVVM.ViewModel
                                 ToolDescription = tool.ToolDescription,
                                 ToolDownloadUrl = tool.ToolArchiveUrl,
                                 ToolVersion = tool.ToolVersion,
-                                ToolPath = Path.Combine(exeDirectory, tool.ToolPath),
+                                ToolPath = tool.ToolPath,
                             };
                             allTools.Add(tool.ToolArchiveUrl, toolEntry);
                         }
@@ -88,6 +90,15 @@ namespace HoodieSuite.MVVM.ViewModel
                     }
                 }
             }
+
+            //foreach (var (gameName, toolEntries) in gameList)
+            //{
+            //    foreach (var (name, tool) in toolEntries)
+            //    {
+            //        TryDownloadTool(absoluteToolsFolderPath, tool);
+            //    }
+            //}
+
             return gameList;
             throw new NotImplementedException();
 
@@ -228,16 +239,54 @@ namespace HoodieSuite.MVVM.ViewModel
             //    //toolsDictionary.Add(gameTypeXAttribute.Value, toolsList);
             //}
             //return toolsDictionary;
+        }
 
-            string GetFileNameFromUrl(string url)
+        static string GetFileNameFromUrl(string url)
+        {
+            Uri SomeBaseUri = new Uri("http://canbeanything");
+            Uri uri;
+            if (!Uri.TryCreate(url, UriKind.Absolute, out uri))
+                uri = new Uri(SomeBaseUri, url);
+
+            return Path.GetFileName(uri.LocalPath);
+        }
+
+        public static bool TryDownloadTool(string toolsFolderPath ,ToolEntry tool)
+        {
+            if (!tool.isDownloaded)
             {
-                Uri SomeBaseUri = new Uri("http://canbeanything");
-                Uri uri;
-                if (!Uri.TryCreate(url, UriKind.Absolute, out uri))
-                    uri = new Uri(SomeBaseUri, url);
-
-                return Path.GetFileName(uri.LocalPath);
+                string absoluteToolPath = Path.Combine(toolsFolderPath, tool.ToolPath.Split('\\').First());
+                string absoluteToolPathExe = Path.Combine(toolsFolderPath, tool.ToolPath);
+                string absoluteVersionFilePath = Path.Combine(absoluteToolPath, $"{tool.ToolName.Replace(' ', '_')}.hsvf");
+            DirectorySetup:
+                if (Directory.Exists(absoluteToolPath))
+                {
+                    if (!File.Exists(absoluteVersionFilePath))
+                    {
+                        File.Create(absoluteVersionFilePath).Dispose();
+                    }
+                    string versionFileText = File.ReadAllText(absoluteVersionFilePath);
+                    if (versionFileText.Trim() != tool.ToolVersion)
+                    {
+                        Directory.Delete(absoluteToolPath, true);
+                        goto DirectorySetup;
+                    }
+                }
+                else
+                {
+                    Directory.CreateDirectory(absoluteToolPath);
+                    File.Create(absoluteVersionFilePath).Dispose();
+                    File.WriteAllText(absoluteVersionFilePath, tool.ToolVersion);
+                    string downloadFileName = GetFileNameFromUrl(tool.ToolDownloadUrl);
+                    string downloadFilePath = Path.Combine(absoluteToolPath, downloadFileName);
+                    HoodieShared.Core.DownloadWithProgressBar(tool.ToolName, tool.ToolDownloadUrl, downloadFilePath);
+                    HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory, downloadFilePath, absoluteToolPath);
+                    File.Delete(downloadFilePath);
+                    tool.NotifyDownloadedStateChanged();
+                    return true;
+                }
             }
+            return false;
         }
 
         public List<string> SupportedGames { get; set; }

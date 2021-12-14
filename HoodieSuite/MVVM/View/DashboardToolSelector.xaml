@@ -26,7 +26,8 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Height="40" Width="40" Margin="1,0,0,0" gif:ImageBehavior.AnimatedSource="{Binding IconPath}"/>
                             <Rectangle Fill="{StaticResource SeparatorForegroundColor}" Opacity="0.5"  VerticalAlignment="Stretch" Height="40" Width="3" Margin="0,0,5,0" Stroke="{StaticResource SeparatorForegroundColor}" />
-                            <TextBlock Text="{Binding ToolName}" Margin="0,0,0,0" FontSize="14"/>
+                            <TextBlock Text="{Binding ToolName}" Margin="0,0,0,0" FontSize="14" />
+                            <CheckBox IsChecked="{Binding isDownloaded, Mode=OneWay}" />
                         </StackPanel>
                         <Separator  VerticalAlignment="Bottom" Opacity="0.5" Background="{StaticResource SeparatorForegroundColor}" Margin="0,0,0,0">
                             <Separator.RenderTransform>

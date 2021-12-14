@@ -26,7 +26,7 @@
       "Dark Souls Map Studio": {
         "ToolDescription": "DS Map Studio is a standalone map editor for all the souls games.",
         "ToolArchiveUrl": "https://github.com/katalash/DSMapStudio/releases/download/preview11/DSMapStudio-preview11.7z",
-        "ToolPath": "DSMapStudio\netcoreapp3.1\\DSMapStudio.exe",
+        "ToolPath": "DSMapStudio\\netcoreapp3.1\\DSMapStudio.exe",
         "ToolVersion": "preview11"
       }
     }
@@ -41,9 +41,9 @@
     ],
     "Tools": {
       "Dark Souls Anim Studio": {
-        "ToolDescription": "A Param Editor",
-        "ToolArchiveUrl": "Edits the TimeAct Editor files of Dark Souls, Bloodborne, Dark Souls 3, and Sekiro.",
-        "ToolPath": "https://github.com/Meowmaritus/DSAnimStudio/releases/download/ver3.0.5/DSAnimStudio_v3.0.5.zip",
+        "ToolDescription": "Edits the TimeAct Editor files of Dark Souls, Bloodborne, Dark Souls 3, and Sekiro.",
+        "ToolArchiveUrl": "https://github.com/Meowmaritus/DSAnimStudio/releases/download/ver3.0.5/DSAnimStudio_v3.0.5.zip",
+        "ToolPath": "DSAnimStudio\\DS Anim Studio.exe",
         "ToolVersion": "3.0.5"
       }
     }
