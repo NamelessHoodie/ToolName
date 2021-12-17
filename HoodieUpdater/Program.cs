@@ -12,7 +12,7 @@ namespace HoodieUpdater
 #if DEBUG
                 Debugger.Launch();
 #endif
-            HoodieShared.Core.HoodieSuiteUpdater(args[0], args[1]);
+            HoodieShared.Core.ToolNameUpdater(args[0], args[1]);
         }
     }
 }

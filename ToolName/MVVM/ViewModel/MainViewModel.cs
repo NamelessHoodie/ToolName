@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HoodieSuite.MVVM.ViewModel
+namespace ToolName.MVVM.ViewModel
 {
     class MainViewModel
     {

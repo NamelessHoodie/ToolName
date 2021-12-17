@@ -9,7 +9,7 @@ using System.Diagnostics;
 * No accountability or support is guaranteed.
 **/
 
-namespace HoodieSuite
+namespace ToolName
 {
     public class StudioClient
     {

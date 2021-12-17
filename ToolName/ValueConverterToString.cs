@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace HoodieSuite
+namespace ToolName
 {
     public class TabItemGetHeaderTextXaml : IValueConverter
     {

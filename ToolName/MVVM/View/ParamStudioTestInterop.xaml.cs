@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace HoodieSuite.MVVM.View
+namespace ToolName.MVVM.View
 {
     public partial class ParamStudioTestInterop : Window
     {

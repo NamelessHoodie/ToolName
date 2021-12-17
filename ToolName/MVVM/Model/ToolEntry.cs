@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Controls;
 
-namespace HoodieSuite.MVVM.Model
+namespace ToolName.MVVM.Model
 {
     public class ToolEntry : ObservableObject
     {

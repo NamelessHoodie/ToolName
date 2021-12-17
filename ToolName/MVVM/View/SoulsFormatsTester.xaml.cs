@@ -14,7 +14,7 @@ using System.Linq;
 using SoulsFormats;
 using System.Diagnostics;
 
-namespace HoodieSuite.MVVM.View
+namespace ToolName.MVVM.View
 {
     /// <summary>
     /// Interaction logic for SoulsFormatsTester.xaml

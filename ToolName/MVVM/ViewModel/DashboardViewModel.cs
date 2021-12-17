@@ -1,13 +1,13 @@
-﻿using HoodieSuite.MVVM.Model;
+﻿using ToolName.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using HoodieSuite.Properties;
+using ToolName.Properties;
 using System.Xml.Linq;
 using System.IO;
 using System.Net;
-using HoodieSuite.MVVM.View;
+using ToolName.MVVM.View;
 using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
 
-namespace HoodieSuite.MVVM.ViewModel
+namespace ToolName.MVVM.ViewModel
 {
     public class DashboardViewModel
     {

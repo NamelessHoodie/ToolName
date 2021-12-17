@@ -1,6 +1,6 @@
-﻿using HoodieSuite.MVVM.Model;
-using HoodieSuite.MVVM.ViewModel;
-using HoodieSuite.Properties;
+﻿using ToolName.MVVM.Model;
+using ToolName.MVVM.ViewModel;
+using ToolName.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HoodieSuite.MVVM.View
+namespace ToolName.MVVM.View
 {
     /// <summary>
     /// Interaction logic for DashboardToolSelector.xaml

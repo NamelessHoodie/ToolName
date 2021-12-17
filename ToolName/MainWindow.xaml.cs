@@ -14,9 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Resources;
 using System.Collections;
-using HoodieSuite.MVVM.View;
+using ToolName.MVVM.View;
 
-namespace HoodieSuite
+namespace ToolName
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 
-namespace HoodieSuite.Properties
+namespace ToolName.Properties
 {
     public static class ResourcesRW
     {

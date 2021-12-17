@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HoodieSuite.MVVM.Model
+namespace ToolName.MVVM.Model
 {
     public class JsonToolModel
     {

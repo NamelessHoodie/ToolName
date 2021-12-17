@@ -46,33 +46,33 @@ public static string buildType = "-debug";
             }
         }
 
-        public static void HoodieSuiteUpdater(string versionId, string newVersionId)
+        public static void ToolNameUpdater(string versionId, string newVersionId)
         {
-            var hoodieSuitePath = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
-            hoodieSuitePath = Directory.GetParent(hoodieSuitePath).FullName;
-            hoodieSuitePath = Directory.GetParent(hoodieSuitePath).FullName;
-            hoodieSuitePath = Directory.GetParent(hoodieSuitePath).FullName;
-            var latest = GithubGetReleases("NamelessHoodie", "HoodieSuite").First(x => x.TagName == newVersionId);
+            var toolNamePath = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
+            toolNamePath = Directory.GetParent(toolNamePath).FullName;
+            toolNamePath = Directory.GetParent(toolNamePath).FullName;
+            toolNamePath = Directory.GetParent(toolNamePath).FullName;
+            var latest = GithubGetReleases("NamelessHoodie", "ToolName").First(x => x.TagName == newVersionId);
             if (latest.Assets.Any())
             {
                 if (latest.TagName != versionId)
                 {
                     var asset = latest.Assets.First();
-                    if (MessageBox.Show($"A new version of HoodieSuite is available = {newVersionId}.\nThe curent version of HoodieScript is = {versionId}\nWould you like to download and install it?", "HoodieSuite Updater", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    if (MessageBox.Show($"A new version of ?ToolName? is available = {newVersionId}.\nThe curent version of ?ToolName? is = {versionId}\nWould you like to download and install it?", "?ToolName? Updater", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
                         string dldFileName = Path.GetFileName(asset.BrowserDownloadUrl);
-                        string newFilePath = Path.Combine(hoodieSuitePath, dldFileName);
-                        DownloadWithProgressBar($"HoodieSuite - {latest.TagName}", asset.BrowserDownloadUrl, newFilePath);
-                        ExtractFile(hoodieSuitePath, newFilePath, hoodieSuitePath);
+                        string newFilePath = Path.Combine(toolNamePath, dldFileName);
+                        DownloadWithProgressBar($"ToolName - {latest.TagName}", asset.BrowserDownloadUrl, newFilePath);
+                        ExtractFile(toolNamePath, newFilePath, toolNamePath);
                     }
                 }
             }
-            OpenHoodieSuite(hoodieSuitePath);
+            OpenToolName(toolNamePath);
         }
 
-        public static void ExtractFile(string hoodieScriptBaseDirectoryPath, string sourceArchive, string destination)
+        public static void ExtractFile(string toolNameBaseDirectoryPath, string sourceArchive, string destination)
         {
-            string zPath = Path.Combine(hoodieScriptBaseDirectoryPath, "Tools", "7-Zip_HoodieSuite", "App", "7-Zip", "7z.exe"); //add to proj and set CopyToOuputDir
+            string zPath = Path.Combine(toolNameBaseDirectoryPath, "Tools", "7-Zip_ToolNameBundled", "App", "7-Zip", "7z.exe"); //add to proj and set CopyToOuputDir
             try
             {
                 ProcessStartInfo pro = new ProcessStartInfo();
@@ -89,11 +89,11 @@ public static string buildType = "-debug";
             }
         }
 
-        public static void CheckUpdatesHoodieSuite(string hoodieScriptBaseDirectoryPath)
+        public static void CheckUpdatesToolName(string toolNameBaseDirectoryPath)
         {
             string assemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            string zPath = Path.Combine(hoodieScriptBaseDirectoryPath, "Tools", "HoodieUpdater", "HoodieUpdater.exe"); //add to proj and set CopyToOuputDir
-            var latestRelease = GithubGetLatestRelease("NamelessHoodie", "HoodieSuite");
+            string zPath = Path.Combine(toolNameBaseDirectoryPath, "Tools", "HoodieUpdater", "HoodieUpdater.exe"); //add to proj and set CopyToOuputDir
+            var latestRelease = GithubGetLatestRelease("NamelessHoodie", "ToolName");
             if (latestRelease != null)
             {
                 var assemblyVersionFormatted = $"{assemblyVersion}{buildType}";
@@ -118,9 +118,9 @@ public static string buildType = "-debug";
             }
         }
 
-        public static void OpenHoodieSuite(string hoodieScriptBaseDirectoryPath)
+        public static void OpenToolName(string toolNameBaseDirectoryPath)
         {
-            string zPath = Path.Combine(hoodieScriptBaseDirectoryPath, "HoodieSuite.exe"); //add to proj and set CopyToOuputDir
+            string zPath = Path.Combine(toolNameBaseDirectoryPath, "ToolName.exe"); //add to proj and set CopyToOuputDir
             try
             {
                 ProcessStartInfo pro = new ProcessStartInfo();

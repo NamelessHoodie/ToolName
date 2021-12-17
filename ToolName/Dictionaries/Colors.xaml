@@ -8,7 +8,7 @@
 
     <SolidColorBrush x:Key="WindowChromeBackgroundMediumColor">#2b2b2b</SolidColorBrush>
 
-    <SolidColorBrush x:Key="HoodieSuiteLogoColor">Goldenrod</SolidColorBrush>
+    <SolidColorBrush x:Key="ToolNameLogoColor">Goldenrod</SolidColorBrush>
     <!--Window Colors-->
 
     <!--Control Background Colors-->

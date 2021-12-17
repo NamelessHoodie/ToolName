@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace HoodieSuite
+namespace ToolName
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -22,7 +22,7 @@ namespace HoodieSuite
 #if RELEASE
             if (!e.Args.Any())
             {
-                HoodieShared.Core.CheckUpdatesHoodieSuite(AppDomain.CurrentDomain.BaseDirectory);
+                HoodieShared.Core.CheckUpdatesToolName(AppDomain.CurrentDomain.BaseDirectory);
             }
 #endif
             var mainWindow = new MainWindow();
