@@ -13,9 +13,9 @@
     "Tools": {
       "Dark Souls Param Studio": {
         "ToolDescription": "A Param Editor",
-        "ToolArchiveUrl": "https://github.com/Philiquaz/DSParamStudio/releases/download/0.4.3b/ParamStudio0.4.3b.rar",
+        "ToolArchiveUrl": "https://github.com/Philiquaz/DSParamStudio/releases/download/0.6.7/ParamStudio0.6.7.rar",
         "ToolPath": "DSParamStudio\\DSParamStudio.exe",
-        "ToolVersion": "0.4.3b"
+        "ToolVersion": "0.6.7"
       },
       "FSVisualBND": {
         "ToolDescription": "A GUI binder file Editor, expecially useful for quickly adding/modifying files",
@@ -62,9 +62,9 @@
       },
       "Dantelion FXR3 Editor": {
         "ToolDescription": "A visual .fxr editor for dark souls 3.",
-        "ToolArchiveUrl": "https://github.com/NamelessHoodie/Dantelion-FXR3-Editor/releases/download/v0.1.0.0/Dantelion-FXR3-Editor-SHA105459db9fe726268a939eb2d4426c8938090c2e.zip",
+        "ToolArchiveUrl": "https://github.com/NamelessHoodie/Dantelion-FXR3-Editor/releases/download/v0.1.1.1/Dantelion-FXR3-Editor-SHA6aae0c3ffe7f1ed2c3f132a5a130d50f44383142.zip",
         "ToolPath": "DFXR3E\\DFXR3Editor.exe",
-        "ToolVersion": "0.1.0.0"
+        "ToolVersion": "0.1.1.1"
       }
     }
   }
