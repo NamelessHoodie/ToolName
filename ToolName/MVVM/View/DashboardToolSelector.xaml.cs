@@ -61,7 +61,13 @@ namespace ToolName.MVVM.View
                 if (ViewModel.SelectedTool.isDownloaded)
                 {
                     var exePath = System.IO.Path.Combine(toolsDirectoryPath, ViewModel.SelectedTool.ToolPath);
-                    Process proc = Process.Start(System.IO.Path.GetFullPath(exePath));
+                    Process proc = new Process();
+                    var processStartInfo = proc.StartInfo;
+                    processStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(exePath);
+                    processStartInfo.FileName = exePath;
+                    processStartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                    proc.Start();
+                    proc.Dispose();
                     Debug.WriteLine($"Launching: {ViewModel.SelectedTool.ToolPath}");
                 }
             }
