@@ -91,13 +91,19 @@ namespace HoodieSuite.MVVM.ViewModel
                 }
             }
 
-            //foreach (var (gameName, toolEntries) in gameList)
+            //foreach (var (toolName, toolEntry) in allTools)
             //{
-            //    foreach (var (name, tool) in toolEntries)
-            //    {
-            //        TryDownloadTool(absoluteToolsFolderPath, tool);
-            //    }
+            //    TryDownloadTool(absoluteToolsFolderPath, toolEntry, false);
+            //    TryUpdateTool(absoluteToolsFolderPath, toolEntry, false);
             //}
+            var toolsList = allTools.Values;
+            var isAskDownloadAllTools = bool.Parse(ResourcesRW.ReadKeyFromResourceFile("isAskDownloadAllTools", true.ToString()));
+            if (isAskDownloadAllTools)
+            {
+                AskUserIfDownloadAll(absoluteToolsFolderPath, toolsList);
+                ResourcesRW.AddOrUpdateResource("isAskDownloadAllTools", false.ToString());
+            }
+            AskUserIfUpdateAll(absoluteToolsFolderPath, toolsList);
 
             return gameList;
         }
@@ -132,6 +138,71 @@ namespace HoodieSuite.MVVM.ViewModel
             return false;
         }
 
+        private static bool AskUserIfDownloadAll(string toolsFolderPath, IEnumerable<ToolEntry> toolslist)
+        {
+            var updatesAvalaible = toolslist.Where(x => !x.isDownloaded);
+            if (updatesAvalaible.Any())
+            {
+                StringBuilder text = new StringBuilder();
+                string label;
+
+                text.Append($"Would you like to download all tools?\nThis message will only be displayed once, choose Carefully.\n\nAvailable tools are:\n");
+                for (int i = 0; i < updatesAvalaible.Count(); i++)
+                {
+                    var tool = updatesAvalaible.ElementAt(i);
+                    text.Append($"{tool.ToolName} - {tool.ToolVersion},\n");
+                    if (i == (updatesAvalaible.Count() - 1))
+                    {
+                        text.Length -= 2;
+                    }
+                }
+                text.AppendLine();
+
+                label = $"Would you like to download all tools?";
+                if (MessageBox.Show(text.ToString(), label, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    foreach (var tool in updatesAvalaible)
+                    {
+                        TryDownloadTool(toolsFolderPath, tool, false);
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static void AskUserIfUpdateAll(string toolsFolderPath, IEnumerable<ToolEntry> toolslist)
+        {
+            var updatesAvalaible = ToolsHaveUpdates(toolsFolderPath, toolslist).Where(x => x.found);
+            if (updatesAvalaible.Any())
+            {
+                StringBuilder text = new StringBuilder();
+                string label;
+
+                text.Append($"{(updatesAvalaible.Count() > 1 ? updatesAvalaible.Count() : "")} {(updatesAvalaible.Count() > 1 ? "Updates" : "An update")} {(updatesAvalaible.Count() > 1 ? "are" : "is")} available. Would you like to download {(updatesAvalaible.Count() > 1 ? "them" : "it")}?\n\n");
+                text.Append($"{(updatesAvalaible.Count() > 1 ? "Updates" : "Update")} Found For:\n");
+                for (int i = 0; i < updatesAvalaible.Count(); i++)
+                {
+                    var (oldVersion, newVersion, tool, found) = updatesAvalaible.ElementAt(i);
+                    text.Append($"{tool.ToolName} - {oldVersion} => {newVersion},\n");
+                    if (i == (updatesAvalaible.Count() - 1))
+                    {
+                        text.Length -= 2;
+                    }
+                }
+                text.AppendLine();
+
+                label = $"{(updatesAvalaible.Count() > 1 ? "Updates" : "Update")} found!";
+                if (MessageBox.Show(text.ToString(), label, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    foreach (var (oldVersion, newVersion, tool, found) in updatesAvalaible)
+                    {
+                        TryUpdateTool(toolsFolderPath, tool, false);
+                    }
+                }
+            }
+        }
+
         public static bool TryDownloadTool(string toolsFolderPath, ToolEntry tool, bool isUserPromptDl = true)
         {
             string absoluteToolPath = Path.Combine(toolsFolderPath, tool.ToolPath.Split('\\').First());
@@ -141,6 +212,7 @@ namespace HoodieSuite.MVVM.ViewModel
                 if (isUserPromptDl ? AskUserIfDownload(tool) : true)
                 {
                     WriteToolToDisk(tool, absoluteToolPath, absoluteVersionFilePath);
+                    return true;
                 }
             }
             return false;
@@ -161,35 +233,67 @@ namespace HoodieSuite.MVVM.ViewModel
             tool.NotifyDownloadedStateChanged();
         }
 
+        private static IEnumerable<(string oldVersion, string newVersion, ToolEntry tool, bool found)> ToolsHaveUpdates(string toolsFolderPath, IEnumerable<ToolEntry> toolEntries)
+        {
+            var a = new List<(string oldVersion, string newVersion, ToolEntry tool, bool found)>();
+            foreach (var tool in toolEntries)
+            {
+                var help = IsToolUpdatesAvailable(toolsFolderPath, tool);
+                if (help.found)
+                {
+                    a.Add((help.oldVersion, help.newVersion, tool, help.found));
+                }
+            }
+            return a;
+        }
+
+        public static (string oldVersion, string newVersion, bool found) IsToolUpdatesAvailable(string toolsFolderPath, ToolEntry tool)
+        {
+            string toolFolderPath = Path.Combine(toolsFolderPath, tool.ToolPath.Split('\\').First());
+            string toolExePathAbsolute = Path.Combine(toolsFolderPath, tool.ToolPath);
+            string versionFilePath = Path.Combine(toolFolderPath, $"{tool.ToolName.Replace(' ', '_')}.hsvf");
+            if (Directory.Exists(toolsFolderPath))
+            {
+                if (File.Exists(versionFilePath))
+                {
+                    string versionFileText = File.ReadAllText(versionFilePath).Trim();
+                    if (versionFileText != tool.ToolVersion)
+                    {
+                        return (versionFileText, tool.ToolVersion, true);
+                    }
+                }
+            }
+            return (String.Empty, String.Empty, false);
+        }
+
         public static bool TryUpdateTool(string toolsFolderPath, ToolEntry tool, bool isUserPromptDl = true)
         {
-            string absoluteToolPath = Path.Combine(toolsFolderPath, tool.ToolPath.Split('\\').First());
-            string absoluteToolPathExe = Path.Combine(toolsFolderPath, tool.ToolPath);
-            string absoluteVersionFilePath = Path.Combine(absoluteToolPath, $"{tool.ToolName.Replace(' ', '_')}.hsvf");
-            if (Directory.Exists(absoluteToolPath))
+            string toolFolderPath = new DirectoryInfo(Path.Combine(toolsFolderPath, tool.ToolPath.Split('\\').First())).FullName;
+            string toolExePathAbsolute = Path.Combine(toolsFolderPath, tool.ToolPath);
+            string versionFilePath = Path.Combine(toolFolderPath, $"{tool.ToolName.Replace(' ', '_')}.hsvf");
+            var hi = IsToolUpdatesAvailable(toolsFolderPath, tool);
+            if (hi.found)
             {
-                string versionFileText = File.ReadAllText(absoluteVersionFilePath).Trim();
-                if (versionFileText != tool.ToolVersion)
+                string toolFolderPathAfterRename = toolFolderPath + "-RenamedForUpdating";
+                bool pressedRetry = false;
+            ComeBackLol:
+                try
                 {
-                    ComeBackLol:
-                    try
+                    if (pressedRetry ? true : isUserPromptDl ? AskUserIfDownload(tool, hi.oldVersion) : true)
                     {
-                        File.Delete(absoluteToolPathExe);
+                        Directory.Move(toolFolderPath, toolFolderPathAfterRename);
+                        Directory.Delete(toolFolderPathAfterRename, true);
+                        WriteToolToDisk(tool, toolFolderPath, versionFilePath);
+                        return true;
                     }
-                    catch (Exception)
+                }
+                catch (Exception)
+                {
+                    if (MessageBox.Show($"WARNING: Could not update {tool.ToolName}.\nVersion {hi.oldVersion} => {tool.ToolVersion}\n{tool.ToolPath} was already being accessed.", $"WARNING: Could not update { tool.ToolName}", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning) == DialogResult.Retry)
                     {
-                        if (MessageBox.Show($"WARNING: Could not update {tool.ToolName}.\nVersion {versionFileText} => {tool.ToolVersion}\n{tool.ToolPath} was already being accessed.", $"WARNING: Could not update { tool.ToolName}", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning) == DialogResult.Retry)
-                        {
-                            goto ComeBackLol;
-                        }
-                        return false;
+                        pressedRetry = true;
+                        goto ComeBackLol;
                     }
-                    if (isUserPromptDl ? AskUserIfDownload(tool, versionFileText) : true)
-                    {
-                        Directory.Delete(absoluteToolPath, true);
-                        WriteToolToDisk(tool, absoluteToolPath, absoluteVersionFilePath);
-                    }
-                    return true;
                 }
             }
             return false;
