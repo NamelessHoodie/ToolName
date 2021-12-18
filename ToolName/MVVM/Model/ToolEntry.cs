@@ -39,7 +39,7 @@ namespace ToolName.MVVM.Model
             return false;
         }
 
-        static string GetFileNameFromUrl(string url)
+        private string GetFileNameFromUrl(string url)
         {
             Uri SomeBaseUri = new Uri("http://canbeanything");
             Uri uri;
@@ -49,29 +49,35 @@ namespace ToolName.MVVM.Model
             return Path.GetFileName(uri.LocalPath);
         }
 
-        private static void WriteToolToDisk(ToolEntry tool, string absoluteToolPath, string absoluteVersionFilePath)
+        private void WriteToolToDisk()
         {
-            if (Directory.Exists(absoluteToolPath))
+            string absoluteToolsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools");
+            string absoluteToolFolderPath = Path.Combine(absoluteToolsFolderPath, ToolFolderPath);
+            string absoluteToolExecutablePath = Path.Combine(absoluteToolFolderPath ,ToolExecutablePath);
+            string absoluteVersionFilePath = Path.Combine(absoluteToolFolderPath, $"{ToolName.Replace(' ', '_')}.hsvf");
+            if (!Directory.Exists(absoluteToolFolderPath))
             {
-                Directory.Delete(absoluteToolPath, true);
+                Directory.CreateDirectory(absoluteToolFolderPath);
             }
-            Directory.CreateDirectory(absoluteToolPath);
+            if (File.Exists(absoluteToolExecutablePath))
+            {
+                File.Delete(absoluteToolExecutablePath);
+            }
             if (!File.Exists(absoluteVersionFilePath))
                 File.Create(absoluteVersionFilePath).Dispose();
-            File.WriteAllText(absoluteVersionFilePath, tool.LatestToolVersion);
-            string downloadFileName = GetFileNameFromUrl(tool.ToolDownloadUrl);
-            string downloadFilePath = Path.Combine(absoluteToolPath, downloadFileName);
-            HoodieShared.Core.DownloadWithProgressBar(tool.ToolName, tool.ToolDownloadUrl, downloadFilePath);
-            HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory, downloadFilePath, absoluteToolPath);
+            File.WriteAllText(absoluteVersionFilePath, LatestToolVersion);
+            string downloadFileName = GetFileNameFromUrl(ToolDownloadUrl);
+            string downloadFilePath = Path.Combine(absoluteToolFolderPath, downloadFileName);
+            HoodieShared.Core.DownloadWithProgressBar(ToolName, ToolDownloadUrl, downloadFilePath);
+            HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory, downloadFilePath, absoluteToolFolderPath);
             File.Delete(downloadFilePath);
-            tool.NotifyDownloadedStateChanged();
+            NotifyDownloadedStateChanged();
         }
 
         public bool TryUpdate(bool isUserPromptDl = true)
         {
             string toolsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools");
             string toolFolderPath = new DirectoryInfo(Path.Combine(toolsFolderPath, ToolFolderPath)).FullName;
-            string versionFilePath = Path.Combine(toolFolderPath, $"{ToolName.Replace(' ', '_')}.hsvf");
             if (hasUpdates)
             {
                 string toolFolderPathAfterRename = toolFolderPath + "-RenamedForUpdating";
@@ -83,7 +89,7 @@ namespace ToolName.MVVM.Model
                     {
                         Directory.Move(toolFolderPath, toolFolderPathAfterRename);
                         Directory.Delete(toolFolderPathAfterRename, true);
-                        WriteToolToDisk(this, toolFolderPath, versionFilePath);
+                        WriteToolToDisk();
                         return true;
                     }
                 }
@@ -113,7 +119,7 @@ namespace ToolName.MVVM.Model
                 {
                     if (pressedRetry ? true : isUserPromptDl ? AskUserIfDownload(this, CurrentToolVersion) : true)
                     {
-                        WriteToolToDisk(this, absoluteToolPath, absoluteVersionFilePath);
+                        WriteToolToDisk();
                         return true;
                     }
                 }
