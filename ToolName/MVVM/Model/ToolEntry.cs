@@ -63,14 +63,17 @@ namespace ToolName.MVVM.Model
             {
                 File.Delete(absoluteToolExecutablePath);
             }
-            if (!File.Exists(absoluteVersionFilePath))
-                File.Create(absoluteVersionFilePath).Dispose();
-            File.WriteAllText(absoluteVersionFilePath, LatestToolVersion);
             string downloadFileName = GetFileNameFromUrl(ToolDownloadUrl);
             string downloadFilePath = Path.Combine(absoluteToolFolderPath, downloadFileName);
             HoodieShared.Core.DownloadWithProgressBar(ToolName, ToolDownloadUrl, downloadFilePath);
-            HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory, downloadFilePath, absoluteToolFolderPath);
-            File.Delete(downloadFilePath);
+            if (!ToolDownloadUrl.EndsWith("exe"))
+            {
+                HoodieShared.Core.ExtractFile(AppDomain.CurrentDomain.BaseDirectory, downloadFilePath, absoluteToolFolderPath);
+                File.Delete(downloadFilePath);
+            }
+            if (!File.Exists(absoluteVersionFilePath))
+                File.Create(absoluteVersionFilePath).Dispose();
+            File.WriteAllText(absoluteVersionFilePath, LatestToolVersion);
             NotifyDownloadedStateChanged();
         }
 

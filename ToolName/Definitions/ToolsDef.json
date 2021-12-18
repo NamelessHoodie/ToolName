@@ -33,18 +33,18 @@
   },
   {
     "SupportedGames": [
+      "Demon's Souls'",
       "Dark Souls - PTDE",
       "Dark Souls - Remastered",
       "Bloodborne",
       "Dark Souls 3",
-      "Sekiro - Shadows Die Twice"
     ],
     "Tools": {
-      "Dark Souls Anim Studio": {
-        "ToolDescription": "Edits the TimeAct Editor files of Dark Souls, Bloodborne, Dark Souls 3, and Sekiro.",
-        "ToolArchiveUrl": "https://github.com/Meowmaritus/DSAnimStudio/releases/download/ver3.0.5/DSAnimStudio_v3.0.5.zip",
-        "ToolPath": "DSAnimStudio\\DS Anim Studio.exe",
-        "ToolVersion": "3.0.5"
+      "HorkBuild": {
+        "ToolDescription": "Can unpack and repack from software archives, also handles unswizzling for bloodborne",
+        "ToolArchiveUrl": "https://github.com/horkrux/DeS-BNDBuild/releases/download/v3.02/DeSBNDBuild.exe",
+        "ToolPath": "HorkBuild\\DeSBNDBuild.exe",
+        "ToolVersion": "3.0.2"
       }
     }
   },
