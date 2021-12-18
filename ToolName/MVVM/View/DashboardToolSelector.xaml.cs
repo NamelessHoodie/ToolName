@@ -56,11 +56,11 @@ namespace ToolName.MVVM.View
             if (e.ClickCount >= 2)   
             {
                 var toolsDirectoryPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools");
-                DashboardViewModel.TryDownloadTool(toolsDirectoryPath, ViewModel.SelectedTool);
-                DashboardViewModel.TryUpdateTool(toolsDirectoryPath, ViewModel.SelectedTool);
+                ViewModel.SelectedTool.TryDownload();
+                ViewModel.SelectedTool.TryUpdate();
                 if (ViewModel.SelectedTool.isDownloaded)
                 {
-                    var exePath = System.IO.Path.Combine(toolsDirectoryPath, ViewModel.SelectedTool.ToolPath);
+                    var exePath = System.IO.Path.Combine(toolsDirectoryPath, ViewModel.SelectedTool.ToolExecutablePath);
                     Process proc = new Process();
                     var processStartInfo = proc.StartInfo;
                     processStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(exePath);
@@ -68,7 +68,7 @@ namespace ToolName.MVVM.View
                     processStartInfo.WindowStyle = ProcessWindowStyle.Normal;
                     proc.Start();
                     proc.Dispose();
-                    Debug.WriteLine($"Launching: {ViewModel.SelectedTool.ToolPath}");
+                    Debug.WriteLine($"Launching: {ViewModel.SelectedTool.ToolExecutablePath}");
                 }
             }
         }

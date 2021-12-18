@@ -35,7 +35,7 @@
     <Color x:Key="ControlPressedColor">#FF211AA9</Color>
 
 
-    <Color x:Key="GlyphColor">#FF444444</Color>
+    <Color x:Key="GlyphColor">#6a406b</Color>
     <Color x:Key="GlyphMouseOver">sc#1, 0.004391443, 0.002428215, 0.242281124</Color>
     
     <!--Border colors-->

@@ -23,18 +23,44 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="4,4,4,8">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Height="40" Width="40" Margin="1,0,0,0" gif:ImageBehavior.AnimatedSource="{Binding IconPath}"/>
-                            <Rectangle Fill="{StaticResource SeparatorForegroundColor}" Opacity="0.5"  VerticalAlignment="Stretch" Height="40" Width="3" Margin="0,0,5,0" Stroke="{StaticResource SeparatorForegroundColor}" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="0">
+                            <Image Height="40" 
+                                   Width="40" 
+                                   Margin="1,0,0,0" 
+                                   gif:ImageBehavior.AnimatedSource="{Binding IconPath}"/>
+                            <Rectangle Fill="{StaticResource SeparatorForegroundColor}" 
+                                       Opacity="0.5"  
+                                       VerticalAlignment="Stretch" 
+                                       Height="40" 
+                                       Width="3" 
+                                       Margin="0,0,5,0" 
+                                       Stroke="{StaticResource SeparatorForegroundColor}" />
                             <TextBlock Text="{Binding ToolName}" Margin="0,0,0,0" FontSize="14" />
-                            <CheckBox IsChecked="{Binding isDownloaded, Mode=OneWay}" />
                         </StackPanel>
-                        <Separator  VerticalAlignment="Bottom" Opacity="0.5" Background="{StaticResource SeparatorForegroundColor}" Margin="0,0,0,0">
+                        <Separator  VerticalAlignment="Bottom" 
+                                    Opacity="0.5" 
+                                    Background="{StaticResource SeparatorForegroundColor}" 
+                                    Margin="0,0,0,0"
+                                    Grid.ColumnSpan="2">
                             <Separator.RenderTransform>
                                 <ScaleTransform ScaleY="3" />
                             </Separator.RenderTransform>
                         </Separator>
-                        <Border Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDown="Double_Click_LaunchTool"/>
+                        <Border Background="Transparent" 
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch" 
+                                MouseDown="Double_Click_LaunchTool"
+                                Grid.ColumnSpan="2"/>
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal">
+                            <TextBlock Text="Installed " VerticalAlignment="Center" FontSize="16"/>
+                            <CheckBox IsChecked="{Binding isDownloaded, NotifyOnSourceUpdated=True}" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
