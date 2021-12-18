@@ -176,7 +176,7 @@ namespace ToolName.MVVM.Model
         }
         public string ToolExecutablePath { get; set; }
         public string LatestToolVersion { get; set; }
-        public string? CurrentToolVersion
+        public string CurrentToolVersion
         {
             get
             {

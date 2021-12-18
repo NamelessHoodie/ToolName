@@ -93,6 +93,7 @@ public static string buildType = "-debug";
         {
             string assemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string zPath = Path.Combine(toolNameBaseDirectoryPath, "Tools", "HoodieUpdater", "HoodieUpdater.exe"); //add to proj and set CopyToOuputDir
+            string toolNamePath = Path.Combine(toolNameBaseDirectoryPath, "ToolName.exe");
             var latestRelease = GithubGetLatestRelease("NamelessHoodie", "ToolName");
             if (latestRelease != null)
             {
@@ -103,9 +104,21 @@ public static string buildType = "-debug";
                     {
                         ProcessStartInfo pro = new ProcessStartInfo();
                         pro.WindowStyle = ProcessWindowStyle.Normal;
+                        pro.WorkingDirectory = Path.GetDirectoryName(zPath);
                         pro.FileName = zPath;
                         pro.ArgumentList.Add(assemblyVersionFormatted);
                         pro.ArgumentList.Add(latestRelease.TagName);
+                        foreach (var process in Process.GetProcessesByName("ToolName"))
+                        {
+                            if (process != Process.GetCurrentProcess())
+                            {
+                                if (process.MainModule.FileName != toolNamePath)
+                                {
+                                    process.Kill();
+                                    process.WaitForExit();
+                                }
+                            }
+                        }
                         Process x = Process.Start(pro);
                         Environment.Exit(0);
                         x.WaitForExit();
@@ -124,7 +137,8 @@ public static string buildType = "-debug";
             try
             {
                 ProcessStartInfo pro = new ProcessStartInfo();
-                pro.WindowStyle = ProcessWindowStyle.Minimized;
+                pro.WindowStyle = ProcessWindowStyle.Normal;
+                pro.WorkingDirectory = Path.GetDirectoryName(zPath);
                 pro.FileName = zPath;
                 pro.Arguments = "true";
                 Process x = Process.Start(pro);
