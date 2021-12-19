@@ -21,8 +21,11 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
+      - name: Publish
+        run: dotnet publish '${{ runner.workspace }}/ToolName/ToolName/ToolName.csproj' --configuration Release -o deploy
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
          name: 'ToolName-SHA${{ github.sha }}'
-         path: '${{ runner.workspace }}/ToolName/bin/Release/net5.0-windows'
+         path: '${{ runner.workspace }}/HoodieSuite/deploy'
