@@ -65,6 +65,6 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="IF EXIST &quot;$(OutDir)hoodieupdater.update&quot; DEL /F &quot;$(OutDir)hoodieupdater.update&quot;&#xD;&#xA;$(OutDir)Tools\7-Zip_ToolNameBundled\App\7-Zip\7z.exe a -t7z &quot;$(OutDir)hoodieupdater.update&quot; &quot;$(SolutionDir)HoodieUpdater\bin\$(ConfigurationName)\net5.0-windows\*&quot;" />
+	  <Exec Command="IF EXIST &quot;$(OutDir)hoodieupdater.update&quot; DEL /F &quot;$(OutDir)hoodieupdater.update&quot;&#xD;&#xA;$(OutDir)Tools\7-Zip_ToolNameBundled\App\7-Zip\7z.exe a -t7z &quot;$(OutDir)hoodieupdater.update&quot; &quot;$(SolutionDir)HoodieUpdater\bin\$(ConfigurationName)\*&quot;" />
 	</Target>
 </Project>
