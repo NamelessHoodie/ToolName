@@ -8,9 +8,9 @@
 		<LangVersion>default</LangVersion>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<AssemblyVersion>1.0.0.1</AssemblyVersion> <!--This is the version ID used by the updater-->
-		<FileVersion>1.0.0.1</FileVersion>
-		<Version>1.0.0.1</Version>
+		<AssemblyVersion>1.0.0.2</AssemblyVersion> <!--This is the version ID used by the updater-->
+		<FileVersion>1.0.0.2</FileVersion>
+		<Version>1.0.0.2</Version>
 		<ApplicationIcon>ToolNameLogo.ico</ApplicationIcon>
 	</PropertyGroup>
 
