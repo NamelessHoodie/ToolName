@@ -15,7 +15,7 @@ namespace HoodieShared
     public class Core
     {
 #if DEBUG
-public static string buildType = "-debug";
+        public static string buildType = "-debug";
 #endif
 #if RELEASE
         public static string buildType = "-stable";
@@ -52,6 +52,10 @@ public static string buildType = "-debug";
             toolNamePath = Directory.GetParent(toolNamePath).FullName;
             toolNamePath = Directory.GetParent(toolNamePath).FullName;
             toolNamePath = Directory.GetParent(toolNamePath).FullName;
+
+            string hoodieUpdaterDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools", "HoodieUpdater");
+            string hoodieUpdaterUpdatedFile = Path.Combine(hoodieUpdaterDir, "HoodieUpdater.updated");
+
             var latest = GithubGetReleases("NamelessHoodie", "ToolName").First(x => x.TagName == newVersionId);
             if (latest.Assets.Any())
             {
@@ -64,15 +68,41 @@ public static string buildType = "-debug";
                         string newFilePath = Path.Combine(toolNamePath, dldFileName);
                         DownloadWithProgressBar($"ToolName - {latest.TagName}", asset.BrowserDownloadUrl, newFilePath);
                         ExtractFile(toolNamePath, newFilePath, toolNamePath);
+                        File.Create(hoodieUpdaterUpdatedFile).Close();
                     }
                 }
             }
             OpenToolName(toolNamePath);
         }
 
-        public static void ExtractFile(string toolNameBaseDirectoryPath, string sourceArchive, string destination)
+        public static void ToolNameUpdaterOfTheUpdater()
         {
-            string zPath = Path.Combine(toolNameBaseDirectoryPath, "Tools", "7-Zip_ToolNameBundled", "App", "7-Zip", "7z.exe"); //add to proj and set CopyToOuputDir
+            string hoodieUpdaterDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools", "HoodieUpdater");
+            string hoodieUpdaterUpdateFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "hoodieupdater.update");
+            string hoodieUpdaterExePath = Path.Combine(hoodieUpdaterDir, "HoodieUpdater.exe");
+            if (File.Exists(hoodieUpdaterUpdateFile))
+            {
+                foreach (var process in Process.GetProcessesByName("HoodieUpdater"))
+                {
+                    if (process.MainModule.FileName == hoodieUpdaterExePath)
+                    {
+                        process.Kill();
+                        process.WaitForExit();
+                    }
+                }
+                if (Directory.Exists(hoodieUpdaterDir))
+                {
+                    Directory.Delete(hoodieUpdaterDir, true);
+                }
+                Directory.CreateDirectory(hoodieUpdaterDir);
+                ExtractFile(AppDomain.CurrentDomain.BaseDirectory, hoodieUpdaterUpdateFile, hoodieUpdaterDir);
+                File.Delete(hoodieUpdaterUpdateFile);
+            }
+        }
+
+        public static void ExtractFile(string toolNameBaseDirectory, string sourceArchive, string destination)
+        {
+            string zPath = Path.Combine(toolNameBaseDirectory, "Tools", "7-Zip_ToolNameBundled", "App", "7-Zip", "7z.exe"); //add to proj and set CopyToOuputDir
             try
             {
                 ProcessStartInfo pro = new ProcessStartInfo();
@@ -91,7 +121,8 @@ public static string buildType = "-debug";
 
         public static void CheckUpdatesToolName(string toolNameBaseDirectoryPath)
         {
-            string assemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            var a = System.Reflection.Assembly.GetEntryAssembly();
+            string assemblyVersion = a.GetName().Version.ToString();
             string zPath = Path.Combine(toolNameBaseDirectoryPath, "Tools", "HoodieUpdater", "HoodieUpdater.exe"); //add to proj and set CopyToOuputDir
             string toolNamePath = Path.Combine(toolNameBaseDirectoryPath, "ToolName.exe");
             var latestRelease = GithubGetLatestRelease("NamelessHoodie", "ToolName");

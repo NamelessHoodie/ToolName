@@ -19,6 +19,7 @@ namespace ToolName
 #if DEBUG
                 Debugger.Launch();
 #endif
+            HoodieShared.Core.ToolNameUpdaterOfTheUpdater();
 #if RELEASE
             if (!e.Args.Any())
             {

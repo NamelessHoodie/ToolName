@@ -23,12 +23,6 @@
         "ToolPath": "FSVisualBND\\FSVisualBND.exe",
         "ToolVersion": "1.1.0.2"
       },
-      "FLVER Editor": {
-        "ToolDescription": "FLVER file editor by ForsakenSilver",
-        "ToolArchiveUrl": "https://github.com/asasasasasbc/FLVER_Editor/releases/download/1.95/FLVER_Editor1.95.zip",
-        "ToolPath": "FLVER_Editor\\FLVER_Editor\\MySFformat.exe",
-        "ToolVersion": "1.95"
-      },
       "Dark Souls Map Studio": {
         "ToolDescription": "DS Map Studio is a standalone map editor for all the souls games. by Katalash",
         "ToolArchiveUrl": "https://github.com/katalash/DSMapStudio/releases/download/preview11/DSMapStudio-preview11.7z",
@@ -39,26 +33,38 @@
   },
   {
     "SupportedGames": [
-      "Demon's Souls"
+      "Dark Souls - PTDE",
+      "Dark Souls - Remastered",
+      "Dark Souls 2",
+      "Dark Souls 2 - SOTFS",
+      "Bloodborne",
+      "Dark Souls 3",
+      "Sekiro - Shadows Die Twice"
     ],
     "Tools": {
-      "MSBEdit": {
-        "ToolDescription": "MSB editor from Wulf2k. - Downloaded provided from HoodieFork",
-        "ToolArchiveUrl": "https://github.com/NamelessHoodie/MSBEdit/releases/download/2021-12-18/MSBEdit-2021-12-18.zip",
-        "ToolPath": "MSBEdit\\MSB-Edit.exe",
-        "ToolVersion": "2018-12-18"
-      },
-      "ParamEdit": {
-        "ToolDescription": "param file editor from Wulf2k",
-        "ToolArchiveUrl": "https://github.com/Wulf2k/DeS-ParamEdit/releases/download/2018-03-23-22/ParamEdit-2018-03-23-22.exe",
-        "ToolPath": "ParamEdit\\ParamEdit-2018-03-23-22.exe",
-        "ToolVersion": "2018-03-23-22"
-      },
-      "FMGEdit": {
-        "ToolDescription": "FMG file editor from Wulf2k. - Downloaded provided from HoodieFork",
-        "ToolArchiveUrl": "https://github.com/NamelessHoodie/DaS-FmgEdit/releases/download/2021-12-18/FMGEdit-2021-12-18.zip",
-        "ToolPath": "FMGEdit\\FmgEdit.exe",
-        "ToolVersion": "2018-12-18"
+      "FLVER Editor": {
+        "ToolDescription": "FLVER file editor by ForsakenSilver",
+        "ToolArchiveUrl": "https://github.com/asasasasasbc/FLVER_Editor/releases/download/1.95/FLVER_Editor1.95.zip",
+        "ToolPath": "FLVER_Editor\\FLVER_Editor\\MySFformat.exe",
+        "ToolVersion": "1.95"
+      }
+    }
+  },
+  {
+    "SupportedGames": [
+      "Demon's Souls",
+      "Dark Souls - PTDE",
+      "Dark Souls - Remastered",
+      "Bloodborne",
+      "Dark Souls 3",
+      "Sekiro - Shadows Die Twice"
+    ],
+    "Tools": {
+      "Dark Souls Anim Studio": {
+        "ToolDescription": "Edits the TimeAct Editor files of Dark Souls, Bloodborne, Dark Souls 3, and Sekiro.",
+        "ToolArchiveUrl": "https://github.com/Meowmaritus/DSAnimStudio/releases/download/ver3.0.5/DSAnimStudio_v3.0.5.zip",
+        "ToolPath": "DSAnimStudio\\DS Anim Studio.exe",
+        "ToolVersion": "3.0.5"
       }
     }
   },
@@ -102,6 +108,31 @@
         "ToolArchiveUrl": "https://github.com/NamelessHoodie/Dantelion-FXR3-Editor/releases/download/v0.1.1.1/Dantelion-FXR3-Editor-SHA6aae0c3ffe7f1ed2c3f132a5a130d50f44383142.zip",
         "ToolPath": "DFXR3E\\DFXR3Editor.exe",
         "ToolVersion": "0.1.1.1"
+      }
+    }
+  },
+  {
+    "SupportedGames": [
+      "Demon's Souls"
+    ],
+    "Tools": {
+      "MSBEdit": {
+        "ToolDescription": "MSB editor from Wulf2k. - Downloaded provided from HoodieFork",
+        "ToolArchiveUrl": "https://github.com/NamelessHoodie/MSBEdit/releases/download/2021-12-18/MSBEdit-2021-12-18.zip",
+        "ToolPath": "MSBEdit\\MSB-Edit.exe",
+        "ToolVersion": "2018-12-18"
+      },
+      "ParamEdit": {
+        "ToolDescription": "param file editor from Wulf2k",
+        "ToolArchiveUrl": "https://github.com/Wulf2k/DeS-ParamEdit/releases/download/2018-03-23-22/ParamEdit-2018-03-23-22.exe",
+        "ToolPath": "ParamEdit\\ParamEdit-2018-03-23-22.exe",
+        "ToolVersion": "2018-03-23-22"
+      },
+      "FMGEdit": {
+        "ToolDescription": "FMG file editor from Wulf2k. - Downloaded provided from HoodieFork",
+        "ToolArchiveUrl": "https://github.com/NamelessHoodie/DaS-FmgEdit/releases/download/2021-12-18/FMGEdit-2021-12-18.zip",
+        "ToolPath": "FMGEdit\\FmgEdit.exe",
+        "ToolVersion": "2018-12-18"
       }
     }
   }
