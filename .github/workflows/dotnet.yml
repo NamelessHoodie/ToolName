@@ -18,7 +18,10 @@ jobs:
       - name: Restore
         run: dotnet restore
         
-      - name: Build
+      - name: Build HoodieUpdater
+        run: dotnet build ${{ runner.workspace }}/ToolName/HoodieUpdater/HoodieUpdater.csproj --configuration Release --no-restore
+
+      - name: Build ToolName
         run: dotnet build ${{ runner.workspace }}/ToolName/ToolName/ToolName.csproj --configuration Release --no-restore -o deploy
 
       - name: Upload artifacts
