@@ -19,7 +19,7 @@ jobs:
         run: dotnet restore
         
       - name: Build
-        run: dotnet build --configuration Release --no-restore -o deploy
+        run: dotnet build ${{ runner.workspace }}/ToolName/ToolName/ToolName.csproj --configuration Release --no-restore -o deploy
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
