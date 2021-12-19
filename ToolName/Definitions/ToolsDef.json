@@ -12,22 +12,53 @@
     ],
     "Tools": {
       "Dark Souls Param Studio": {
-        "ToolDescription": "A Param Editor",
+        "ToolDescription": "A Param Editor forked from DSMapStudio by Philiquaz",
         "ToolArchiveUrl": "https://github.com/Philiquaz/DSParamStudio/releases/download/0.6.7/ParamStudio0.6.7.rar",
         "ToolPath": "DSParamStudio\\DSParamStudio.exe",
         "ToolVersion": "0.6.7"
       },
       "FSVisualBND": {
-        "ToolDescription": "A GUI binder file Editor, expecially useful for quickly adding/modifying files",
+        "ToolDescription": "A GUI binder file Editor, expecially useful for quickly adding/modifying files by NamelessHoodie[2]",
         "ToolArchiveUrl": "https://github.com/NamelessHoodie/FSVisualBND/releases/download/v1.1.0.2/FSVisualBND.V1.1.0.2.zip",
         "ToolPath": "FSVisualBND\\FSVisualBND.exe",
         "ToolVersion": "1.1.0.2"
       },
+      "FLVER Editor": {
+        "ToolDescription": "FLVER file editor by ForsakenSilver",
+        "ToolArchiveUrl": "https://github.com/asasasasasbc/FLVER_Editor/releases/download/1.95/FLVER_Editor1.95.zip",
+        "ToolPath": "FLVER_Editor\\FLVER_Editor\\MySFformat.exe",
+        "ToolVersion": "1.95"
+      },
       "Dark Souls Map Studio": {
-        "ToolDescription": "DS Map Studio is a standalone map editor for all the souls games.",
+        "ToolDescription": "DS Map Studio is a standalone map editor for all the souls games. by Katalash",
         "ToolArchiveUrl": "https://github.com/katalash/DSMapStudio/releases/download/preview11/DSMapStudio-preview11.7z",
         "ToolPath": "DSMapStudio\\netcoreapp3.1\\DSMapStudio.exe",
         "ToolVersion": "preview11"
+      }
+    }
+  },
+  {
+    "SupportedGames": [
+      "Demon's Souls"
+    ],
+    "Tools": {
+      "MSBEdit": {
+        "ToolDescription": "MSB editor from Wulf2k. - Downloaded provided from HoodieFork",
+        "ToolArchiveUrl": "https://github.com/NamelessHoodie/MSBEdit/releases/download/2021-12-18/MSBEdit-2021-12-18.zip",
+        "ToolPath": "MSBEdit\\MSB-Edit.exe",
+        "ToolVersion": "2018-12-18"
+      },
+      "ParamEdit": {
+        "ToolDescription": "param file editor from Wulf2k",
+        "ToolArchiveUrl": "https://github.com/Wulf2k/DeS-ParamEdit/releases/download/2018-03-23-22/ParamEdit-2018-03-23-22.exe",
+        "ToolPath": "ParamEdit\\ParamEdit-2018-03-23-22.exe",
+        "ToolVersion": "2018-03-23-22"
+      },
+      "FMGEdit": {
+        "ToolDescription": "FMG file editor from Wulf2k. - Downloaded provided from HoodieFork",
+        "ToolArchiveUrl": "https://github.com/NamelessHoodie/DaS-FmgEdit/releases/download/2021-12-18/FMGEdit-2021-12-18.zip",
+        "ToolPath": "FMGEdit\\FmgEdit.exe",
+        "ToolVersion": "2018-12-18"
       }
     }
   },
@@ -37,14 +68,20 @@
       "Dark Souls - PTDE",
       "Dark Souls - Remastered",
       "Bloodborne",
-      "Dark Souls 3",
+      "Dark Souls 3"
     ],
     "Tools": {
-      "HorkBuild": {
+      "DESBNDBuilder(HorkBuild)": {
         "ToolDescription": "Can unpack and repack from software archives, also handles unswizzling for bloodborne",
         "ToolArchiveUrl": "https://github.com/horkrux/DeS-BNDBuild/releases/download/v3.02/DeSBNDBuild.exe",
         "ToolPath": "HorkBuild\\DeSBNDBuild.exe",
         "ToolVersion": "3.0.2"
+      },
+      "DESBNDBuilder(WulfBuild)": {
+        "ToolDescription": "Can unpack and repack from software archives, also handles unswizzling for bloodborne",
+        "ToolArchiveUrl": "https://github.com/Wulf2k/DeS-BNDBuild/releases/download/2018-11-08-15/BND-Build-2018-11-08-15.exe",
+        "ToolPath": "WulfBuild\\BND-Build-2018-11-08-15.exe",
+        "ToolVersion": "2018-11-08-15"
       }
     }
   },

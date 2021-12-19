@@ -21,8 +21,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBox">
                     <Border Name="Border"
-                BorderThickness="1"
-                CornerRadius="2">
+                            BorderThickness="1"
+                            CornerRadius="2">
                         <Border.Background>
                             <SolidColorBrush Color="{StaticResource ControlBackgroundLightColor}" />
                         </Border.Background>
@@ -30,22 +30,22 @@
                             <SolidColorBrush Color="{StaticResource BorderDarkColor}" />
                         </Border.BorderBrush>
                         <ScrollViewer Margin="0"
-                        Focusable="false">
+                                      Focusable="false">
                             <StackPanel Margin="2"
-                        IsItemsHost="True" />
+                                        IsItemsHost="True" />
                         </ScrollViewer>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled"
-                   Value="false">
+                                 Value="false">
                             <Setter TargetName="Border"
-                    Property="Background">
+                                    Property="Background">
                                 <Setter.Value>
                                     <SolidColorBrush Color="{StaticResource DisabledControlBackgroundLightColor}" />
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="Border"
-                    Property="BorderBrush">
+                                    Property="BorderBrush">
                                 <Setter.Value>
                                     <SolidColorBrush Color="{DynamicResource DisabledBorderLightColor}" />
                                 </Setter.Value>
@@ -53,7 +53,7 @@
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsGrouping"
-                   Value="true">
+                                 Value="true">
                             <Setter Property="ScrollViewer.CanContentScroll"
                     Value="false" />
                         </Trigger>

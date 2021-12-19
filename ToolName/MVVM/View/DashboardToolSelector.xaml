@@ -18,8 +18,13 @@
             <ColumnDefinition Width="579*"/>
         </Grid.ColumnDefinitions>
         
-        <ListBox x:Name="GamesListBox" Grid.Column="0" SelectionChanged="GameSelector_SelectionChanged" SelectedItem="{Binding SelectedGame, Mode=OneWayToSource}" ItemsSource="{Binding SupportedGames}"/>
-        <ListBox x:Name="tools" Grid.Column="1" SelectedItem="{Binding SelectedTool, Mode=OneWayToSource}">
+        <ListBox x:Name="GamesListBox" Grid.Column="0" 
+                 SelectionChanged="GameSelector_SelectionChanged" 
+                 SelectedItem="{Binding SelectedGame, Mode=OneWayToSource}" 
+                 ItemsSource="{Binding SupportedGames}"/>
+        <ListBox x:Name="tools" 
+                 Grid.Column="1" 
+                 SelectedItem="{Binding SelectedTool, Mode=OneWayToSource}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="4,4,4,8">
@@ -40,7 +45,9 @@
                                        Width="3" 
                                        Margin="0,0,5,0" 
                                        Stroke="{StaticResource SeparatorForegroundColor}" />
-                            <TextBlock Text="{Binding ToolName}" Margin="0,0,0,0" FontSize="14" />
+                            <TextBlock Text="{Binding ToolName}" 
+                                       Margin="0,0,0,0" 
+                                       FontSize="14" />
                         </StackPanel>
                         <Separator  VerticalAlignment="Bottom" 
                                     Opacity="0.5" 
@@ -56,18 +63,25 @@
                                 VerticalAlignment="Stretch" 
                                 MouseDown="Double_Click_LaunchTool"
                                 Grid.ColumnSpan="2"/>
-                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="0,0,0,10">
+                        <StackPanel Orientation="Vertical" 
+                                    Grid.Column="1"  
+                                    Margin="0,0,0,11" 
+                                    VerticalAlignment="Stretch" 
+                                    HorizontalAlignment="Stretch">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Installed" VerticalAlignment="Center" FontSize="12"/>
-                                <CheckBox IsChecked="{Binding isDownloaded, NotifyOnSourceUpdated=True}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                <CheckBox IsChecked="{Binding isDownloaded, NotifyOnSourceUpdated=True}" 
+                                          VerticalAlignment="Center" Margin="5,0,0,0"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Current Version ="/>
-                                <TextBlock Text="{Binding CurrentToolVersion}" Margin="5,0,0,0"/>
+                                <TextBlock Text="{Binding CurrentToolVersion}" 
+                                           Margin="5,0,0,0"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Latest Version ="/>
-                                <TextBlock Text="{Binding LatestToolVersion}" Margin="5,0,0,0"/>
+                                <TextBlock Text="{Binding LatestToolVersion}" 
+                                           Margin="5,0,0,0"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>

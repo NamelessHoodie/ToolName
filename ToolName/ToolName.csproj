@@ -8,9 +8,10 @@
 		<LangVersion>default</LangVersion>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<AssemblyVersion>2.0.0.0</AssemblyVersion> <!--This is the version ID used by the updater-->
-		<FileVersion>2.0.0.0</FileVersion>
-		<Version>2.0.0</Version>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion> <!--This is the version ID used by the updater-->
+		<FileVersion>1.0.0.0</FileVersion>
+		<Version>1.0.0</Version>
+		<ApplicationIcon>ToolNameLogo.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -36,6 +37,10 @@
 		<Content Include="Tools\**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="ToolNameLogo.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
