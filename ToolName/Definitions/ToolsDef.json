@@ -28,6 +28,12 @@
         "ToolArchiveUrl": "https://github.com/katalash/DSMapStudio/releases/download/preview11/DSMapStudio-preview11.7z",
         "ToolPath": "DSMapStudio\\netcoreapp3.1\\DSMapStudio.exe",
         "ToolVersion": "preview11"
+      },
+      "Dark Souls Map Studio - Param Studio Merge": {
+        "ToolDescription": "DS Map Studio is a standalone map editor for all the souls games. by Katalash, now includes param studio features.",
+        "ToolArchiveUrl": "https://cdn.discordapp.com/attachments/529900741998149643/922346346273472563/DSMapStudio-ParamStudioMergeTest.7z",
+        "ToolPath": "DSMapStudioParamEdition\\net6.0-windows\\DSMapStudio.exe",
+        "ToolVersion": "preview11-param"
       }
     }
   },
